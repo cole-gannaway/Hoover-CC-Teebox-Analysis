@@ -1,10 +1,26 @@
 import React, { Component } from 'react';
 import { DataService } from '../../services/data-service';
 import MaterialTable from '../MaterialTable/MaterialTable';
+import SelectAPI from '../SelectAPI/SelectAPI';
+import { YardageUtils } from '../../services/yardage-utils';
 
-class MarkerDepthTable extends Component<{}, {}> {
+const options = ['None', '3', '4', '5'];
+class MarkerDepthTable extends Component<{}, { parFilter: string }> {
+
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            parFilter: '3'
+        }
+        this.handleParFilterChange = this.handleParFilterChange.bind(this);
+    }
     public render() {
-        let holeIds: number[] = DataService.getAllHoleIdsWithMarkers();
+        let holeIds: number[] = [];
+        if (this.state.parFilter === 'None') {
+            holeIds = DataService.getAllHoleIds(null);
+        } else {
+            holeIds = DataService.getAllHoleIds(this.state.parFilter);
+        }
         const markerIds = DataService.getAllMarkerIds();
 
         // construct header row
@@ -28,7 +44,7 @@ class MarkerDepthTable extends Component<{}, {}> {
                 let cellVal = '-';
                 if (markerInfo) {
                     const depth = markerInfo.depth;
-                    const delta = Math.floor((depth / 2)) - 1;
+                    const delta = YardageUtils.computePlusMinus(depth);
                     depthSum += depth;
                     deltaSum += delta;
                     cellVal = '(' + depth.toString() + ' / 2) - 1 => \xB1 ' + delta.toString();
@@ -45,6 +61,9 @@ class MarkerDepthTable extends Component<{}, {}> {
         dataRows.forEach((row) => finalData.push(row));
 
         return (<div>
+            <div>
+                Par <SelectAPI value={this.state.parFilter} options={options} handleChange={this.handleParFilterChange}></SelectAPI>
+            </div>
             <MaterialTable data={finalData}></MaterialTable>
         </div>);
     }

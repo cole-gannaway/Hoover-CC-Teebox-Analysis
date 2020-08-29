@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PinDepthTable from '../PinDepthTable/PinDepthTable';
 import MarkerDepthTable from '../MarkerDepthTable/MarkerDepthTable';
+import HoleYardageTable from '../HoleYardageTable/HoleYardageTable';
+import CourseAnalysisTable from '../CourseAnalysisTable/CourseAnalysisTable';
 
 class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: number }> {
 
@@ -22,7 +24,14 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
         <PinDepthTable></PinDepthTable>
         <h4>Teebox Depths</h4>
         <MarkerDepthTable></MarkerDepthTable>
+        <h4>Hole Yardages</h4>
+        <HoleYardageTable></HoleYardageTable>
+        <h4>Analysis</h4>
+        <CourseAnalysisTable></CourseAnalysisTable>
       </div>
+      <br></br>
+      <br></br>
+
     </div>);
   }
 
