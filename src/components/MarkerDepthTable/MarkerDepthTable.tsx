@@ -4,7 +4,7 @@ import MaterialTable from '../MaterialTable/MaterialTable';
 import SelectAPI from '../SelectAPI/SelectAPI';
 import { YardageUtils } from '../../services/yardage-utils';
 
-const options = ['None', '3', '4', '5'];
+const options = ['Any', '3', '4', '5'];
 class MarkerDepthTable extends Component<{}, { parFilter: string }> {
 
     constructor(props: any) {
@@ -16,7 +16,7 @@ class MarkerDepthTable extends Component<{}, { parFilter: string }> {
     }
     public render() {
         let holeIds: number[] = [];
-        if (this.state.parFilter === 'None') {
+        if (this.state.parFilter === 'Any') {
             holeIds = DataService.getAllHoleIds(null);
         } else {
             holeIds = DataService.getAllHoleIds(this.state.parFilter);

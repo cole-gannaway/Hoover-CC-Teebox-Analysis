@@ -23,10 +23,14 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
         <h4>Pin Depths</h4>
         <PinDepthTable></PinDepthTable>
         <h4>Teebox Depths</h4>
+        <div>{'(Teebox depth / 2) - 1'}</div>
+        <br></br>
         <MarkerDepthTable></MarkerDepthTable>
         <h4>Hole Yardages</h4>
         <HoleYardageTable></HoleYardageTable>
-        <h4>Analysis</h4>
+        <h4>Course Analysis</h4>
+        <div>{'Yardage + Pin Depth \xB1 Marker Depth'}</div>
+        <br></br>
         <CourseAnalysisTable></CourseAnalysisTable>
       </div>
       <br></br>
