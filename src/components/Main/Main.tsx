@@ -3,6 +3,7 @@ import PinDepthTable from '../PinDepthTable/PinDepthTable';
 import MarkerDepthTable from '../MarkerDepthTable/MarkerDepthTable';
 import HoleYardageTable from '../HoleYardageTable/HoleYardageTable';
 import CourseAnalysisTable from '../CourseAnalysisTable/CourseAnalysisTable';
+import FinalAnalysisTable from '../FinalAnalysisTable/FinalAnalysisTable';
 
 class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: number }> {
 
@@ -19,19 +20,21 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
   public render() {
     return (<div>
       <div>
-        <h2>Overview</h2>
-        <h4>Pin Depths</h4>
+        <h1>Data Overview</h1>
+        <h3>Pin Depths</h3>
         <PinDepthTable></PinDepthTable>
-        <h4>Teebox Depths</h4>
+        <h3>Teebox Depths</h3>
         <div>{'(Teebox depth / 2) - 1'}</div>
         <br></br>
         <MarkerDepthTable></MarkerDepthTable>
-        <h4>Hole Yardages</h4>
+        <h3>Hole Yardages</h3>
         <HoleYardageTable></HoleYardageTable>
-        <h4>Course Analysis</h4>
+        <h3>Course Analysis</h3>
         <div>{'Yardage + Pin Depth \xB1 Marker Depth'}</div>
         <br></br>
         <CourseAnalysisTable></CourseAnalysisTable>
+        <h1>Final Analysis</h1>
+        <FinalAnalysisTable></FinalAnalysisTable>
       </div>
       <br></br>
       <br></br>
