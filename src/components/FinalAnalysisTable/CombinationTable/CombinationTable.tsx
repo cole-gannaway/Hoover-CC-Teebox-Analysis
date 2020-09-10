@@ -6,7 +6,10 @@ import { DataService } from '../../../services/data-service';
 
 class CombinationTable extends Component<{ holeIds: number[], desiredYardages: number[], yardageCalcArr: IYardageCalc[] }, {}> {
 
-
+    constructor(props: any) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
     public render() {
         // construct header row
         const headerRow: string[] = [];
@@ -16,14 +19,12 @@ class CombinationTable extends Component<{ holeIds: number[], desiredYardages: n
         });
 
         // compute combinations
-        const foundCombo: IYardageCalc[] = CalculationUtils.findCombo(this.props.holeIds, this.props.desiredYardages, this.props.yardageCalcArr);
-
-        const combos: IYardageCalc[][] = [foundCombo];
+        const combos = CalculationUtils.findAllCombos(this.props.holeIds, this.props.desiredYardages, this.props.yardageCalcArr);
         // construct data rows
         const dataRows = combos.map((combo, index) => {
             // construct data row
             const dataRow: string[] = [];
-            dataRow.push((index + 1).toString());
+            dataRow.push((index + 1).toString() + ' => Pin# ' + combo[0].pinId);
             this.props.holeIds.forEach((holeId) => {
                 // default
                 let cellVal = '-';
@@ -39,7 +40,7 @@ class CombinationTable extends Component<{ holeIds: number[], desiredYardages: n
                         const constantYardage = yardage + pinDepth;
                         const markerAdjustment = found.desiredYardage - constantYardage;
 
-                        cellVal = yardage.toString() + ' + ' + pinDepth.toString() + ' + ' + markerAdjustment.toString() + ' = ' + found.desiredYardage.toString();
+                        cellVal = yardage.toString() + ' + ' + pinDepth.toString() + ' + ' + markerAdjustment.toString() + ' = ' + found.desiredYardage.toString() + ' => Marker# ' + markerInfo.id;
                     }
 
                 }
@@ -53,8 +54,14 @@ class CombinationTable extends Component<{ holeIds: number[], desiredYardages: n
         dataRows.forEach((row) => countData.push(row));
 
         return (<div>
-            <MaterialTable data={countData}></MaterialTable>
+            <div style={{ overflow: "auto", height: "600px" }}>
+                <MaterialTable data={countData}></MaterialTable>
+            </div>
+            <button onClick={this.handleClick}>Click Me!</button>
         </div>);
+    }
+    handleClick() {
+
     }
 
 }

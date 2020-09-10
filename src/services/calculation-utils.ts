@@ -28,58 +28,91 @@ export class CalculationUtils {
 
     return retVal;
   }
-  public static findCombo(
+  public static findAllCombos(
     holeIds: number[],
     desiredYardages: number[],
     yardageCalcArr: IYardageCalc[]
-  ): IYardageCalc[] {
+  ): IYardageCalc[][] {
+    const combos: IYardageCalc[][] = [];
     let combo: IYardageCalc[] = [];
-    let index = 0;
-    while (
-      !this.isComboValid(combo, holeIds, desiredYardages) &&
-      index < yardageCalcArr.length
-    ) {
-      const potentialCalc = yardageCalcArr[index];
-      if (this.canAddToCombo(combo, potentialCalc)) {
-        combo.push(potentialCalc);
-        index = 0;
-      } else {
-        index++;
+    this.recursiveFunction(
+      combo,
+      combos,
+      holeIds,
+      desiredYardages,
+      yardageCalcArr
+    );
+    return combos;
+  }
+  private static recursiveFunction(
+    combo: IYardageCalc[],
+    combos: IYardageCalc[][],
+    holeIds: number[],
+    desiredYardages: number[],
+    possibleValues: IYardageCalc[]
+  ) {
+    // success base case
+    if (combo.length === desiredYardages.length) {
+      combos.push(this.cloneCombo(combo));
+      return;
+    }
+    // failure base case
+    if (possibleValues.length === 0) {
+      return;
+    }
+    // filter out
+    const filtered: IYardageCalc[] = this.filterPossibleValues(
+      possibleValues,
+      combo
+    );
+    while (filtered.length !== 0) {
+      const lastElement = filtered.pop();
+      if (lastElement) {
+        // add to combo
+        combo.push(lastElement);
+        // recurse
+        this.recursiveFunction(
+          combo,
+          combos,
+          holeIds,
+          desiredYardages,
+          filtered
+        );
+        // remove from combo
+        combo.pop();
       }
     }
-
-    return combo;
   }
-  private static canAddToCombo(
-    combo: IYardageCalc[],
-    potentialCalc: IYardageCalc
-  ) {
+  public static filterPossibleValues(
+    possibleValues: IYardageCalc[],
+    combo: IYardageCalc[]
+  ): IYardageCalc[] {
     const comboHoleIds = combo.map((val) => val.holeId);
     const comboDesiredYardages = combo.map((val) => val.desiredYardage);
-    const indexOfExistingHoleId = comboHoleIds.findIndex(
-      (holeId) => holeId === potentialCalc.holeId
-    );
-    const indexOfExistingDesiredYardage = comboDesiredYardages.findIndex(
-      (desiredYardage) => desiredYardage === potentialCalc.desiredYardage
-    );
-
-    let holeIdExists = true;
-    let desiredYardageExists = true;
-    if (indexOfExistingDesiredYardage === -1) holeIdExists = false;
-    if (indexOfExistingHoleId === -1) desiredYardageExists = false;
-    if (!holeIdExists && !desiredYardageExists) return true;
-    else return false;
+    let comboPinId: number | null = null;
+    if (combo.length > 1) {
+      comboPinId = combo[0].pinId;
+    }
+    const filtered = possibleValues
+      .filter((val) => {
+        return comboHoleIds.findIndex((holeId) => val.holeId === holeId) === -1;
+      })
+      .filter((val) => {
+        return (
+          comboDesiredYardages.findIndex((dy) => val.desiredYardage === dy) ===
+          -1
+        );
+      })
+      .filter((val) => {
+        if (comboPinId) return val.pinId === comboPinId;
+        else return true;
+      });
+    return filtered;
   }
-  private static isComboValid(
-    combo: IYardageCalc[],
-    holeIds: number[],
-    desiredYardages: number[]
-  ): boolean {
-    const comboHoleIds = combo.map((val) => val.holeId);
-    const comboDesiredYardages = combo.map((val) => val.desiredYardage);
-    const doHoleIdsMatch = holeIds === comboHoleIds;
-    const doYardagesMatch = desiredYardages === comboDesiredYardages;
-    if (doHoleIdsMatch && doYardagesMatch) return true;
-    else return false;
+
+  private static cloneCombo(combo: IYardageCalc[]) {
+    const cloned: IYardageCalc[] = [];
+    combo.forEach((val) => cloned.push(val));
+    return cloned;
   }
 }
