@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { IYardageCalc } from '../../../interfaces/IYardageCalc';
-import MaterialTable from '../../MaterialTable/MaterialTable';
+import DataTableApi from '../../DataTableApi/DataTableApi';
 import { CalculationUtils } from '../../../services/calculation-utils';
 import { DataService } from '../../../services/data-service';
 
@@ -54,9 +54,7 @@ class CombinationTable extends Component<{ holeIds: number[], desiredYardages: n
         dataRows.forEach((row) => countData.push(row));
 
         return (<div>
-            <div style={{ overflow: "auto", height: "600px" }}>
-                <MaterialTable data={countData}></MaterialTable>
-            </div>
+            <DataTableApi data={countData}></DataTableApi>
         </div>);
     }
     handleClick() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { IYardageCalc } from '../../../interfaces/IYardageCalc';
-import MaterialTable from '../../MaterialTable/MaterialTable';
+import DataTableApi from '../../DataTableApi/DataTableApi';
 
 
 
@@ -38,7 +38,7 @@ class DesiredYardageCountTable extends Component<{ holeIds: number[], desiredYar
         dataRows.forEach((row) => countData.push(row));
 
         return (<div>
-            <MaterialTable data={countData}></MaterialTable>
+            <DataTableApi data={countData}></DataTableApi>
         </div>);
     }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DataService } from '../../services/data-service';
-import MaterialTable from '../MaterialTable/MaterialTable';
+import DataTableApi from '../DataTableApi/DataTableApi';
 import SelectAPI from '../SelectAPI/SelectAPI';
 
 const options = ['Any', '3', '4', '5'];
@@ -61,7 +61,7 @@ class PinDepthTable extends Component<{}, { parFilter: string }> {
         Par
         <SelectAPI value={this.state.parFilter} options={options} handleChange={this.handleParFilterChange}></SelectAPI>
       </div>
-      <MaterialTable data={finalData}></MaterialTable>
+      <DataTableApi data={finalData}></DataTableApi>
     </div>);
   }
   public handleParFilterChange(newVal: string) {

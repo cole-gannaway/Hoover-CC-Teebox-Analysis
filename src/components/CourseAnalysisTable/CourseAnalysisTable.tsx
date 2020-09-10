@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DataService } from '../../services/data-service';
-import MaterialTable from '../MaterialTable/MaterialTable';
+import DataTableApi from '../DataTableApi/DataTableApi';
 import SelectAPI from '../SelectAPI/SelectAPI';
 import { YardageUtils } from '../../services/yardage-utils';
 
@@ -77,7 +77,7 @@ class CourseAnalysisTable extends Component<{}, { parFilter: string, markerFilte
                 Par <SelectAPI value={this.state.parFilter} options={options} handleChange={this.handleParFilterChange}></SelectAPI>
                 Marker <SelectAPI value={this.state.markerFilter} options={markerIdsAsStr} handleChange={this.handleMarkerFilterChange}></SelectAPI>
             </div>
-            <MaterialTable data={finalData}></MaterialTable>
+            <DataTableApi data={finalData}></DataTableApi>
         </div>);
     }
     public handleParFilterChange(newVal: string) {
