@@ -57,7 +57,6 @@ class CombinationTable extends Component<{ holeIds: number[], desiredYardages: n
             <div style={{ overflow: "auto", height: "600px" }}>
                 <MaterialTable data={countData}></MaterialTable>
             </div>
-            <button onClick={this.handleClick}>Click Me!</button>
         </div>);
     }
     handleClick() {
