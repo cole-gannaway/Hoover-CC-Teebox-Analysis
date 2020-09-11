@@ -12,7 +12,7 @@ class DataTableApi extends Component<{ data: string[][] }, {}> {
                 name: header,
                 selector: index.toString(),
                 wrap: true,
-                minWidth: "200px"
+                minWidth: "120px"
             }
         });
         const dataRows = this.props.data.slice(1, this.props.data.length);
@@ -25,7 +25,7 @@ class DataTableApi extends Component<{ data: string[][] }, {}> {
             return flatMappedData;
         })
         return (
-            <DataTable noHeader={true} data={data} columns={columns} fixedHeader
+            <DataTable noHeader={true} data={data} columns={columns}
                 fixedHeaderScrollHeight="300px"></DataTable>
 
         );
