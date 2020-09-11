@@ -89,25 +89,32 @@ export class CalculationUtils {
   ): IYardageCalc[] {
     const comboHoleIds = combo.map((val) => val.holeId);
     const comboDesiredYardages = combo.map((val) => val.desiredYardage);
-    let comboPinId: number | null = null;
-    if (combo.length > 1) {
-      comboPinId = combo[0].pinId;
+    if (combo.length === 0) {
+      return possibleValues;
+    } else {
+      const comboPinId = combo[0].pinId;
+      const filtered = possibleValues
+        .filter((val) => {
+          return (
+            comboHoleIds.findIndex((holeId) => val.holeId === holeId) === -1
+          );
+        })
+        .filter((val) => {
+          return (
+            comboDesiredYardages.findIndex(
+              (dy) => val.desiredYardage === dy
+            ) === -1
+          );
+        })
+        .filter((val) => {
+          if (comboPinId) {
+            return val.pinId === comboPinId;
+          } else {
+            return false;
+          }
+        });
+      return filtered;
     }
-    const filtered = possibleValues
-      .filter((val) => {
-        return comboHoleIds.findIndex((holeId) => val.holeId === holeId) === -1;
-      })
-      .filter((val) => {
-        return (
-          comboDesiredYardages.findIndex((dy) => val.desiredYardage === dy) ===
-          -1
-        );
-      })
-      .filter((val) => {
-        if (comboPinId) return val.pinId === comboPinId;
-        else return true;
-      });
-    return filtered;
   }
 
   private static cloneCombo(combo: IYardageCalc[]) {
