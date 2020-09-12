@@ -36,11 +36,12 @@ class CombinationTable extends Component<{ holeIds: number[], desiredYardages: n
                     if (pinInfo && markerInfo) {
                         // constants
                         const yardage = markerInfo.yardage;
+                        const slope = markerInfo.slope;
                         const pinDepth = pinInfo.depth;
                         const constantYardage = yardage + pinDepth;
                         const markerAdjustment = found.desiredYardage - constantYardage;
 
-                        cellVal = yardage.toString() + ' + ' + pinDepth.toString() + ' + ' + markerAdjustment.toString() + ' = ' + found.desiredYardage.toString() + ' => Marker# ' + markerInfo.id;
+                        cellVal = yardage.toString() + ' + ' + pinDepth.toString() + ' + ' + slope + ' + ' + markerAdjustment.toString() + ' = ' + found.desiredYardage.toString() + ' => Marker# ' + markerInfo.id;
                     }
 
                 }

@@ -37,31 +37,36 @@
           "id": 1,
           "depth": 13,
           "yardage": 120,
-          "teebox": 1
+          "teebox": 1,
+          "slope": -1
         },
         {
           "id": 2,
           "depth": 15,
           "yardage": 155,
-          "teebox": 2
+          "teebox": 2,
+          "slope": -2
         },
         {
           "id": 3,
           "depth": 18,
           "yardage": 176,
-          "teebox": 3
+          "teebox": 3,
+          "slope": -3
         },
         {
           "id": 4,
           "depth": 10,
           "yardage": 186,
-          "teebox": 4
+          "teebox": 4,
+          "slope": -7
         },
         {
           "id": 5,
           "depth": 10,
           "yardage": 216,
-          "teebox": 5
+          "teebox": 5,
+          "slope": -12
         }
       ],
       "pinLocations": [
@@ -159,31 +164,36 @@
           "id": 1,
           "depth": 10,
           "yardage": 102,
-          "teebox": 1
+          "teebox": 1,
+          "slope": 0
         },
         {
           "id": 2,
           "depth": 10,
           "yardage": 102,
-          "teebox": 1
+          "teebox": 1,
+          "slope": 0
         },
         {
           "id": 3,
           "depth": 12,
           "yardage": 154,
-          "teebox": 2
+          "teebox": 2,
+          "slope": 0
         },
         {
           "id": 4,
           "depth": 19,
           "yardage": 164,
-          "teebox": 3
+          "teebox": 3,
+          "slope": 0
         },
         {
           "id": 5,
           "depth": 17,
           "yardage": 181,
-          "teebox": 4
+          "teebox": 4,
+          "slope": 0
         }
       ],
       "pinLocations": [
@@ -281,31 +291,36 @@
           "id": 1,
           "depth": 9,
           "yardage": 133,
-          "teebox": 1
+          "teebox": 1,
+          "slope": 0
         },
         {
           "id": 2,
           "depth": 9,
           "yardage": 133,
-          "teebox": 1
+          "teebox": 1,
+          "slope": 0
         },
         {
           "id": 3,
           "depth": 13,
           "yardage": 146,
-          "teebox": 2
+          "teebox": 2,
+          "slope": 0
         },
         {
           "id": 4,
           "depth": 21,
           "yardage": 165,
-          "teebox": 3
+          "teebox": 3,
+          "slope": 0
         },
         {
           "id": 5,
           "depth": 10,
           "yardage": 185,
-          "teebox": 4
+          "teebox": 4,
+          "slope": 0
         }
       ],
       "pinLocations": [
@@ -433,31 +448,36 @@
           "id": 1,
           "depth": 12,
           "yardage": 139,
-          "teebox": 1
+          "teebox": 1,
+          "slope": 0
         },
         {
           "id": 2,
           "depth": 12,
           "yardage": 139,
-          "teebox": 1
+          "teebox": 1,
+          "slope": 0
         },
         {
           "id": 3,
           "depth": 12,
           "yardage": 166,
-          "teebox": 2
+          "teebox": 2,
+          "slope": 0
         },
         {
           "id": 4,
           "depth": 20,
           "yardage": 195,
-          "teebox": 3
+          "teebox": 3,
+          "slope": 0
         },
         {
           "id": 5,
           "depth": 20,
           "yardage": 234,
-          "teebox": 4
+          "teebox": 4,
+          "slope": 0
         }
       ],
       "pinLocations": [
@@ -617,31 +637,36 @@
           "id": 1,
           "depth": 12,
           "yardage": 114,
-          "teebox": 1
+          "teebox": 1,
+          "slope": 1
         },
         {
           "id": 2,
           "depth": 12,
           "yardage": 128,
-          "teebox": 1
+          "teebox": 1,
+          "slope": 2
         },
         {
           "id": 3,
           "depth": 17,
           "yardage": 148,
-          "teebox": 2
+          "teebox": 2,
+          "slope": 3
         },
         {
           "id": 4,
           "depth": 30,
           "yardage": 175,
-          "teebox": 3
+          "teebox": 3,
+          "slope": 4
         },
         {
           "id": 5,
           "depth": 10,
           "yardage": 200,
-          "teebox": 4
+          "teebox": 4,
+          "slope": 5
         }
       ],
       "pinLocations": [

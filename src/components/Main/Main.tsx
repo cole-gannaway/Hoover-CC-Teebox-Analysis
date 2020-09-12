@@ -4,6 +4,7 @@ import MarkerDepthTable from '../MarkerDepthTable/MarkerDepthTable';
 import HoleYardageTable from '../HoleYardageTable/HoleYardageTable';
 import CourseAnalysisTable from '../CourseAnalysisTable/CourseAnalysisTable';
 import FinalAnalysisTable from '../FinalAnalysisTable/FinalAnalysisTable';
+import SlopeTable from '../SlopeTable/SlopeTable';
 
 class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: number }> {
 
@@ -29,8 +30,10 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
         <MarkerDepthTable></MarkerDepthTable>
         <h3>Hole Yardages</h3>
         <HoleYardageTable></HoleYardageTable>
+        <h3>Slope Table</h3>
+        <SlopeTable></SlopeTable>
         <h3>Course Analysis</h3>
-        <div>{'Yardage + Pin Depth \xB1 Marker Depth'}</div>
+        <div>{'Yardage + Pin Depth + Slope \xB1 Marker Depth'}</div>
         <br></br>
         <CourseAnalysisTable></CourseAnalysisTable>
         <h1>Final Analysis</h1>

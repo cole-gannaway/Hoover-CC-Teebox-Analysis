@@ -52,14 +52,15 @@ class CourseAnalysisTable extends Component<{}, { parFilter: string, markerFilte
                     const yardage = markerInfo.yardage;
                     const pinDepth = pinInfo.depth;
                     const markerDepth = markerInfo.depth;
+                    const slope = markerInfo.slope;
                     const markerDepthDelta = YardageUtils.computePlusMinus(markerDepth);
                     // max
-                    const highTotal = yardage + pinDepth + markerDepthDelta;
+                    const highTotal = yardage + pinDepth + slope + markerDepthDelta;
                     maxSum += highTotal;
                     // min
-                    const lowTotal = yardage + pinDepth - markerDepthDelta;
+                    const lowTotal = yardage + pinDepth + slope - markerDepthDelta;
                     minSum += lowTotal;
-                    cellVal = yardage.toString() + ' + ' + pinDepth.toString() + ' \xB1  ' + markerDepthDelta.toString() + ' = ( ' + lowTotal.toString() + ', ' + highTotal.toString() + ' )';
+                    cellVal = yardage.toString() + ' + ' + pinDepth.toString() + ' + ' + slope.toString() + ' \xB1  ' + markerDepthDelta.toString() + ' = ( ' + lowTotal.toString() + ', ' + highTotal.toString() + ' )';
                 }
                 dataRow.push(cellVal);
             });

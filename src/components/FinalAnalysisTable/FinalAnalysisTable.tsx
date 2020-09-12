@@ -74,7 +74,7 @@ class FinalAnalysisTable extends Component<{}, { parFilter: string, desiredYarda
             </div>
             <div>
                 <h3>Combinations Table</h3>
-                <div>{'Yardage + Pin Depth + Marker Adjustment = Desired Yardage'}</div>
+                <div>{'Yardage + Pin Depth + Slope + Marker Adjustment = Desired Yardage'}</div>
                 <br></br>
                 <CombinationTable holeIds={holeIds} desiredYardages={this.state.desiredYardages} yardageCalcArr={yardageCalcArr} ></CombinationTable>
             </div>
