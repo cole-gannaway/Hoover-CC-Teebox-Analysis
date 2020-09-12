@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Hoover-CC-Teebox-Analysis/precache-manifest.ba0221b57bd6e63deab41e72d8132ab9.js"
+  "/Hoover-CC-Teebox-Analysis/precache-manifest.b0ff265ac4dcdcc3a969b052ab3d2f27.js"
 );
 
 self.addEventListener('message', (event) => {
