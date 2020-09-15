@@ -17,8 +17,9 @@ export class CalculationUtils {
     if (pinInfo && markerInfo) {
       // constants
       const yardage = markerInfo.yardage;
+      const slope = markerInfo.slope;
       const pinDepth = pinInfo.depth;
-      const constantYardage = yardage + pinDepth;
+      const constantYardage = yardage + pinDepth + slope;
       const markerDelta = YardageUtils.computePlusMinus(markerInfo.depth);
       const desiredYardageDelta = constantYardage - desiredYardage;
       const absDesiredYardageDelta = Math.abs(desiredYardageDelta);
