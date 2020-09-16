@@ -1,4 +1,3 @@
-import data from "../resources/data.json";
 import testData from "../resources/data.json";
 import { ICourse } from "../resources/interfaces/ICourse";
 
