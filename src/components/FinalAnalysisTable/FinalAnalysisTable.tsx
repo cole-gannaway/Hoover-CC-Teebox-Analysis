@@ -17,7 +17,7 @@ const defaultParToBeginingYardage = {
 
 
 
-class FinalAnalysisTable extends Component<{}, { parFilter: string, desiredYardages: number[] }> {
+class FinalAnalysisTable extends Component<{ dataService: DataService }, { parFilter: string, desiredYardages: number[] }> {
 
     constructor(props: any) {
         super(props);
@@ -32,9 +32,9 @@ class FinalAnalysisTable extends Component<{}, { parFilter: string, desiredYarda
     }
     public render() {
         let holeIds: number[] = [];
-        holeIds = DataService.getAllHoleIds(this.state.parFilter);
-        const markerIds = DataService.getAllMarkerIds();
-        const pinIds = DataService.getAllPinLocationIds();
+        holeIds = this.props.dataService.getAllHoleIds(this.state.parFilter);
+        const markerIds = this.props.dataService.getAllMarkerIds();
+        const pinIds = this.props.dataService.getAllPinLocationIds();
 
         // construct header row
         const headerRow: string[] = [];
@@ -52,7 +52,7 @@ class FinalAnalysisTable extends Component<{}, { parFilter: string, desiredYarda
             pinIds.forEach((pinId) => {
                 markerIds.forEach(markerId => {
                     this.state.desiredYardages.forEach((desiredYardage) => {
-                        if (CalculationUtils.canCombinationProduceDesiredYardage(holeId, pinId, markerId, desiredYardage)) {
+                        if (CalculationUtils.canCombinationProduceDesiredYardage(this.props.dataService, holeId, pinId, markerId, desiredYardage)) {
                             yardageCalcArr.push({
                                 holeId: holeId,
                                 pinId: pinId,
@@ -76,7 +76,7 @@ class FinalAnalysisTable extends Component<{}, { parFilter: string, desiredYarda
                 <h3>Combinations Table</h3>
                 <div>{'Yardage + Pin Depth + Slope + Marker Adjustment = Desired Yardage'}</div>
                 <br></br>
-                <CombinationTable holeIds={holeIds} desiredYardages={this.state.desiredYardages} yardageCalcArr={yardageCalcArr} ></CombinationTable>
+                <CombinationTable dataService={this.props.dataService} holeIds={holeIds} desiredYardages={this.state.desiredYardages} yardageCalcArr={yardageCalcArr} ></CombinationTable>
             </div>
 
         </div>);
@@ -95,7 +95,7 @@ class FinalAnalysisTable extends Component<{}, { parFilter: string, desiredYarda
     }
     public handleParFilterChange(newVal: string) {
         // set default desired yardage
-        const holeIds = DataService.getAllHoleIds(newVal);
+        const holeIds = this.props.dataService.getAllHoleIds(newVal);
         const newPar = parseInt(newVal);
         let beginVal = 0;
         switch (newPar) {

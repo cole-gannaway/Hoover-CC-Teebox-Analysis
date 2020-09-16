@@ -4,7 +4,7 @@ import DataTableApi from '../../DataTableApi/DataTableApi';
 import { CalculationUtils } from '../../../services/calculation-utils';
 import { DataService } from '../../../services/data-service';
 
-class CombinationTable extends Component<{ holeIds: number[], desiredYardages: number[], yardageCalcArr: IYardageCalc[] }, {}> {
+class CombinationTable extends Component<{ dataService: DataService, holeIds: number[], desiredYardages: number[], yardageCalcArr: IYardageCalc[] }, {}> {
 
     constructor(props: any) {
         super(props);
@@ -31,8 +31,8 @@ class CombinationTable extends Component<{ holeIds: number[], desiredYardages: n
                 const found = combo.find((val) => val.holeId === holeId);
                 if (found) {
                     // show calculations
-                    const pinInfo = DataService.getPinInfoForHole(found.holeId, found.pinId);
-                    const markerInfo = DataService.getMarkerInfoForHole(found.holeId, found.markerId);
+                    const pinInfo = this.props.dataService.getPinInfoForHole(found.holeId, found.pinId);
+                    const markerInfo = this.props.dataService.getMarkerInfoForHole(found.holeId, found.markerId);
                     if (pinInfo && markerInfo) {
                         // constants
                         const yardage = markerInfo.yardage;

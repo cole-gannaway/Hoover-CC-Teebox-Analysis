@@ -4,7 +4,7 @@ import DataTableApi from '../DataTableApi/DataTableApi';
 import SelectAPI from '../SelectAPI/SelectAPI';
 
 const options = ['Any', '3', '4', '5'];
-class PinDepthTable extends Component<{}, { parFilter: string }> {
+class PinDepthTable extends Component<{ dataService: DataService }, { parFilter: string }> {
 
   constructor(props: any) {
     super(props);
@@ -17,11 +17,11 @@ class PinDepthTable extends Component<{}, { parFilter: string }> {
   public render() {
     let holeIds: number[] = [];
     if (this.state.parFilter === 'Any') {
-      holeIds = DataService.getAllHoleIds(null);
+      holeIds = this.props.dataService.getAllHoleIds(null);
     } else {
-      holeIds = DataService.getAllHoleIds(this.state.parFilter);
+      holeIds = this.props.dataService.getAllHoleIds(this.state.parFilter);
     }
-    const pinLocationIds = DataService.getAllPinLocationIds();
+    const pinLocationIds = this.props.dataService.getAllPinLocationIds();
 
     // construct header row
     const headerRow: string[] = [];
@@ -38,7 +38,7 @@ class PinDepthTable extends Component<{}, { parFilter: string }> {
       dataRow.push(pinId.toString());
       let rowSum = 0;
       holeIds.forEach((holeId) => {
-        const pinInfo = DataService.getPinInfoForHole(holeId, pinId);
+        const pinInfo = this.props.dataService.getPinInfoForHole(holeId, pinId);
         // default
         let cellVal = '-';
         if (pinInfo) {

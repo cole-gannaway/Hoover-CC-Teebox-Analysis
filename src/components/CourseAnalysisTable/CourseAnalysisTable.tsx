@@ -5,7 +5,7 @@ import SelectAPI from '../SelectAPI/SelectAPI';
 import { YardageUtils } from '../../services/yardage-utils';
 
 const options = ['Any', '3', '4', '5'];
-class CourseAnalysisTable extends Component<{}, { parFilter: string, markerFilter: string }> {
+class CourseAnalysisTable extends Component<{ dataService: DataService }, { parFilter: string, markerFilter: string }> {
 
     constructor(props: any) {
         super(props);
@@ -19,12 +19,12 @@ class CourseAnalysisTable extends Component<{}, { parFilter: string, markerFilte
     public render() {
         let holeIds: number[] = [];
         if (this.state.parFilter === 'Any') {
-            holeIds = DataService.getAllHoleIds(null);
+            holeIds = this.props.dataService.getAllHoleIds(null);
         } else {
-            holeIds = DataService.getAllHoleIds(this.state.parFilter);
+            holeIds = this.props.dataService.getAllHoleIds(this.state.parFilter);
         }
-        const markerIds = DataService.getAllMarkerIds();
-        const pinIds = DataService.getAllPinLocationIds();
+        const markerIds = this.props.dataService.getAllMarkerIds();
+        const pinIds = this.props.dataService.getAllPinLocationIds();
 
         const markerId = parseInt(this.state.markerFilter);
 
@@ -44,8 +44,8 @@ class CourseAnalysisTable extends Component<{}, { parFilter: string, markerFilte
             let maxSum = 0;
             let minSum = 0;
             holeIds.forEach((holeId) => {
-                const markerInfo = DataService.getMarkerInfoForHole(holeId, markerId);
-                const pinInfo = DataService.getPinInfoForHole(holeId, pinId);
+                const markerInfo = this.props.dataService.getMarkerInfoForHole(holeId, markerId);
+                const pinInfo = this.props.dataService.getPinInfoForHole(holeId, pinId);
                 // default
                 let cellVal = '-';
                 if (markerInfo && pinInfo) {

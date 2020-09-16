@@ -1,12 +1,18 @@
 import data from "../resources/data.json";
+import testData from "../resources/data.json";
+import { ICourse } from "../resources/interfaces/ICourse";
 
 export class DataService {
-  public static getAllData() {
-    return data;
+  private course: ICourse = testData;
+  setCourse(course: ICourse) {
+    this.course = course;
+  }
+  public getAllData() {
+    return this.course;
   }
   /* This will disappear when all data is present */
-  public static getAllHoleIdsWithMarkers() {
-    const fitleredHoles = data.holes.filter((hole) => {
+  public getAllHoleIdsWithMarkers() {
+    const fitleredHoles = this.course.holes.filter((hole) => {
       if (hole.markers) return true;
       else return false;
     });
@@ -15,15 +21,15 @@ export class DataService {
     });
     return holeIds;
   }
-  public static getAllHoleIds(parFilter: string | null) {
+  public getAllHoleIds(parFilter: string | null) {
     // apply filters
-    let fitleredHoles = data.holes;
+    let fitleredHoles = this.course.holes;
     if (parFilter) {
-      fitleredHoles = data.holes.filter(
+      fitleredHoles = this.course.holes.filter(
         (hole) => hole.par.toString() === parFilter
       );
     } else {
-      fitleredHoles = data.holes;
+      fitleredHoles = this.course.holes;
     }
 
     const holeIds = fitleredHoles.map((hole) => {
@@ -31,9 +37,9 @@ export class DataService {
     });
     return holeIds;
   }
-  public static getAllPinLocationIds() {
+  public getAllPinLocationIds() {
     const allIds: number[] = [];
-    data.holes.forEach((hole) => {
+    this.course.holes.forEach((hole) => {
       const pinLocationIdsForHole = hole.pinLocations.map((pinLocation) => {
         return pinLocation.id;
       });
@@ -46,9 +52,9 @@ export class DataService {
     });
     return allIds;
   }
-  public static getPinInfoForHole(holeId: number, pinId: number) {
+  public getPinInfoForHole(holeId: number, pinId: number) {
     let retVal = null;
-    const foundHole = data.holes.find((hole) => hole.id === holeId);
+    const foundHole = this.course.holes.find((hole) => hole.id === holeId);
     if (foundHole) {
       const foundPinLocationInfo = foundHole.pinLocations.find(
         (pinLocation) => pinLocation.id === pinId
@@ -65,9 +71,9 @@ export class DataService {
     }
     return retVal;
   }
-  public static getAllMarkerIds() {
+  public getAllMarkerIds() {
     const allIds: number[] = [];
-    data.holes.forEach((hole) => {
+    this.course.holes.forEach((hole) => {
       if (hole.markers) {
         const pinLocationIdsForHole = hole.markers.map((pinLocation) => {
           return pinLocation.id;
@@ -82,9 +88,9 @@ export class DataService {
     });
     return allIds;
   }
-  public static getMarkerInfoForHole(holeId: number, markerId: number) {
+  public getMarkerInfoForHole(holeId: number, markerId: number) {
     let retVal = null;
-    const foundHole = data.holes.find((hole) => hole.id === holeId);
+    const foundHole = this.course.holes.find((hole) => hole.id === holeId);
     if (foundHole) {
       if (foundHole.markers) {
         const foundMarkerInfo = foundHole.markers.find(

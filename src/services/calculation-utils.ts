@@ -4,6 +4,7 @@ import { IYardageCalc } from "../interfaces/IYardageCalc";
 
 export class CalculationUtils {
   public static canCombinationProduceDesiredYardage(
+    dataService: DataService,
     holeId: number,
     pinId: number,
     markerId: number,
@@ -11,9 +12,9 @@ export class CalculationUtils {
   ) {
     let retVal = false;
     // get pinInfo for the hole
-    const pinInfo = DataService.getPinInfoForHole(holeId, pinId);
+    const pinInfo = dataService.getPinInfoForHole(holeId, pinId);
     // if markerInfo can get the desiredYardage then add it
-    const markerInfo = DataService.getMarkerInfoForHole(holeId, markerId);
+    const markerInfo = dataService.getMarkerInfoForHole(holeId, markerId);
     if (pinInfo && markerInfo) {
       // constants
       const yardage = markerInfo.yardage;

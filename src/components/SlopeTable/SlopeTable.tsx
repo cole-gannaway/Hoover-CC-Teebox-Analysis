@@ -4,7 +4,7 @@ import DataTableApi from '../DataTableApi/DataTableApi';
 import SelectAPI from '../SelectAPI/SelectAPI';
 
 const options = ['Any', '3', '4', '5'];
-class SlopeTable extends Component<{}, { parFilter: string }> {
+class SlopeTable extends Component<{ dataService: DataService }, { parFilter: string }> {
 
   constructor(props: any) {
     super(props);
@@ -17,11 +17,11 @@ class SlopeTable extends Component<{}, { parFilter: string }> {
   public render() {
     let holeIds: number[] = [];
     if (this.state.parFilter === 'Any') {
-      holeIds = DataService.getAllHoleIds(null);
+      holeIds = this.props.dataService.getAllHoleIds(null);
     } else {
-      holeIds = DataService.getAllHoleIds(this.state.parFilter);
+      holeIds = this.props.dataService.getAllHoleIds(this.state.parFilter);
     }
-    const markerIds = DataService.getAllMarkerIds();
+    const markerIds = this.props.dataService.getAllMarkerIds();
 
     // construct header row
     const headerRow: string[] = [];
@@ -38,7 +38,7 @@ class SlopeTable extends Component<{}, { parFilter: string }> {
       dataRow.push(markerId.toString());
       let slopeSum = 0;
       holeIds.forEach((holeId) => {
-        const markerInfo = DataService.getMarkerInfoForHole(holeId, markerId);
+        const markerInfo = this.props.dataService.getMarkerInfoForHole(holeId, markerId);
         // default
         let cellVal = '-';
         if (markerInfo) {
