@@ -29,7 +29,7 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
         <h1>Custom Inputs</h1>
         <div>
           <div>Upload <input type="file" accept=".json" onChange={this.handleUploadFileChange}></input></div>
-          <div>Download Original Data: <a href='/data.json' download >Download</a></div>
+          <div>Download Original Data: <a href='https://drive.google.com/file/d/1C0cUoiSHonKCfyXHYroZLH3DznETKwGB/view?usp=sharing' >Download</a></div>
         </div>
         <h1>Final Analysis</h1>
         <FinalAnalysisTable dataService={this.state.dataService}></FinalAnalysisTable>
