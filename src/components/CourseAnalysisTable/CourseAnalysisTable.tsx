@@ -26,7 +26,7 @@ class CourseAnalysisTable extends Component<{ dataService: DataService }, { parF
         const markerIds = this.props.dataService.getAllMarkerIds();
         const pinIds = this.props.dataService.getAllPinLocationIds();
 
-        const markerId = parseInt(this.state.markerFilter);
+        const markerId = this.state.markerFilter;
 
         // construct header row
         const headerRow: string[] = [];

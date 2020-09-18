@@ -7,7 +7,7 @@ export class CalculationUtils {
     dataService: DataService,
     holeId: number,
     pinId: number,
-    markerId: number,
+    markerId: string,
     desiredYardage: number
   ) {
     let retVal = false;

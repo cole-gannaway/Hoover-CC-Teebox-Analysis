@@ -1,5 +1,5 @@
 export interface IMarker {
-  id: number;
+  id: string;
   depth: number;
   yardage: number;
   teebox: number;

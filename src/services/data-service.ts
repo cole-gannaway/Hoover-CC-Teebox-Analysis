@@ -71,7 +71,7 @@ export class DataService {
     return retVal;
   }
   public getAllMarkerIds() {
-    const allIds: number[] = [];
+    const allIds: string[] = [];
     this.course.holes.forEach((hole) => {
       if (hole.markers) {
         const pinLocationIdsForHole = hole.markers.map((pinLocation) => {
@@ -85,9 +85,10 @@ export class DataService {
         });
       }
     });
+    allIds.sort((a: string, b: string) => a.localeCompare(b));
     return allIds;
   }
-  public getMarkerInfoForHole(holeId: number, markerId: number) {
+  public getMarkerInfoForHole(holeId: number, markerId: string) {
     let retVal = null;
     const foundHole = this.course.holes.find((hole) => hole.id === holeId);
     if (foundHole) {
