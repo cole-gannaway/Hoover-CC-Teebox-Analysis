@@ -36,28 +36,28 @@
         {
           "id": "1&2",
           "depth": 13,
-          "yardage": 120,
+          "yardage": 119,
           "teebox": 1,
           "slope": -1
         },
         {
           "id": "3",
           "depth": 15,
-          "yardage": 155,
+          "yardage": 153,
           "teebox": 2,
           "slope": -2
         },
         {
           "id": "4",
           "depth": 18,
-          "yardage": 176,
+          "yardage": 178,
           "teebox": 3,
           "slope": -3
         },
         {
           "id": "5",
           "depth": 10,
-          "yardage": 216,
+          "yardage": 215,
           "teebox": 5,
           "slope": -12
         }
@@ -156,28 +156,28 @@
         {
           "id": "1&2",
           "depth": 10,
-          "yardage": 102,
+          "yardage": 101,
           "teebox": 1,
           "slope": 0
         },
         {
           "id": "3",
           "depth": 12,
-          "yardage": 154,
+          "yardage": 157,
           "teebox": 2,
           "slope": 0
         },
         {
           "id": "4",
           "depth": 19,
-          "yardage": 164,
+          "yardage": 157,
           "teebox": 3,
           "slope": 0
         },
         {
           "id": "5",
           "depth": 17,
-          "yardage": 181,
+          "yardage": 179,
           "teebox": 4,
           "slope": 0
         }
@@ -276,28 +276,28 @@
         {
           "id": "1&2",
           "depth": 9,
-          "yardage": 133,
+          "yardage": 128,
           "teebox": 1,
           "slope": 0
         },
         {
           "id": "3",
           "depth": 13,
-          "yardage": 146,
+          "yardage": 142,
           "teebox": 2,
           "slope": 0
         },
         {
           "id": "4",
           "depth": 21,
-          "yardage": 165,
+          "yardage": 160,
           "teebox": 3,
           "slope": 0
         },
         {
           "id": "5",
           "depth": 10,
-          "yardage": 185,
+          "yardage": 182,
           "teebox": 4,
           "slope": 0
         }
@@ -424,30 +424,37 @@
       "id": 12,
       "markers": [
         {
-          "id": "1&2",
+          "id": "1",
           "depth": 12,
-          "yardage": 139,
+          "yardage": 112,
           "teebox": 1,
           "slope": 0
         },
         {
-          "id": "3",
+          "id": "2",
           "depth": 12,
-          "yardage": 166,
+          "yardage": 136,
           "teebox": 2,
+          "slope": 0
+        },
+        {
+          "id": "3",
+          "depth": 20,
+          "yardage": 165,
+          "teebox": 3,
           "slope": 0
         },
         {
           "id": "4",
           "depth": 20,
-          "yardage": 195,
+          "yardage": 194,
           "teebox": 3,
           "slope": 0
         },
         {
           "id": "5",
           "depth": 20,
-          "yardage": 234,
+          "yardage": 216,
           "teebox": 4,
           "slope": 0
         }
@@ -606,37 +613,30 @@
       "id": 17,
       "markers": [
         {
-          "id": "1",
+          "id": "1&2",
           "depth": 12,
-          "yardage": 114,
+          "yardage": 121,
           "teebox": 1,
           "slope": 1
         },
         {
-          "id": "2",
+          "id": "3",
           "depth": 12,
-          "yardage": 128,
+          "yardage": 147,
           "teebox": 1,
           "slope": 2
         },
         {
-          "id": "3",
-          "depth": 17,
-          "yardage": 148,
-          "teebox": 2,
-          "slope": 3
-        },
-        {
           "id": "4",
           "depth": 30,
-          "yardage": 175,
+          "yardage": 174,
           "teebox": 3,
           "slope": 4
         },
         {
           "id": "5",
           "depth": 10,
-          "yardage": 200,
+          "yardage": 198,
           "teebox": 4,
           "slope": 5
         }
