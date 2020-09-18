@@ -31,6 +31,8 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
           <div>Upload <input type="file" accept=".json" onChange={this.handleUploadFileChange}></input></div>
           <div>Download Original Data: <a href='/data.json' download >Download</a></div>
         </div>
+        <h1>Final Analysis</h1>
+        <FinalAnalysisTable dataService={this.state.dataService}></FinalAnalysisTable>
         <h1>Data Overview</h1>
         <h3>Pin Depths</h3>
         <PinDepthTable dataService={this.state.dataService}></PinDepthTable>
@@ -38,16 +40,16 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
         <div>{'(Teebox depth / 2) - 1'}</div>
         <br></br>
         <MarkerDepthTable dataService={this.state.dataService}></MarkerDepthTable>
-        <h3>Hole Yardages</h3>
-        <HoleYardageTable dataService={this.state.dataService}></HoleYardageTable>
-        <h3>Slope Table</h3>
-        <SlopeTable dataService={this.state.dataService}></SlopeTable>
         <h3>Course Analysis</h3>
         <div>{'Yardage + Pin Depth + Slope \xB1 Marker Depth'}</div>
         <br></br>
         <CourseAnalysisTable dataService={this.state.dataService}></CourseAnalysisTable>
-        <h1>Final Analysis</h1>
-        <FinalAnalysisTable dataService={this.state.dataService}></FinalAnalysisTable>
+        <h3>Hole Yardages</h3>
+        <HoleYardageTable dataService={this.state.dataService}></HoleYardageTable>
+        <h3>Slope Table</h3>
+        <SlopeTable dataService={this.state.dataService}></SlopeTable>
+
+
       </div>
       <br></br>
       <br></br>

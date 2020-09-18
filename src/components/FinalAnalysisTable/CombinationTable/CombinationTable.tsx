@@ -20,6 +20,9 @@ class CombinationTable extends Component<{ dataService: DataService, holeIds: nu
 
         // compute combinations
         const combos = CalculationUtils.findAllCombos(this.props.holeIds, this.props.desiredYardages, this.props.yardageCalcArr);
+        combos.sort((a: IYardageCalc[], b: IYardageCalc[]) => {
+            return a[0].pinId - b[0].pinId;
+        });
         // construct data rows
         const dataRows = combos.map((combo, index) => {
             // construct data row

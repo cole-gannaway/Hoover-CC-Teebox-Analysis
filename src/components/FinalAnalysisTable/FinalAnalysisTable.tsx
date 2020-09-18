@@ -69,15 +69,16 @@ class FinalAnalysisTable extends Component<{ dataService: DataService }, { parFi
             <div>Par <SelectAPI value={this.state.parFilter} options={parOptions} handleChange={this.handleParFilterChange}></SelectAPI></div>
             <div>Yardage Inputs {desiredYardageInputs}</div>
             <div>
-                <h3>Possibilities Table</h3>
-                <DesiredYardageCountTable holeIds={holeIds} desiredYardages={this.state.desiredYardages} yardageCalcArr={yardageCalcArr} ></DesiredYardageCountTable>
-            </div>
-            <div>
                 <h3>Combinations Table</h3>
                 <div>{'Yardage + Pin Depth + Slope + Marker Adjustment = Desired Yardage'}</div>
                 <br></br>
                 <CombinationTable dataService={this.props.dataService} holeIds={holeIds} desiredYardages={this.state.desiredYardages} yardageCalcArr={yardageCalcArr} ></CombinationTable>
             </div>
+            <div>
+                <h3>Possibilities Table</h3>
+                <DesiredYardageCountTable holeIds={holeIds} desiredYardages={this.state.desiredYardages} yardageCalcArr={yardageCalcArr} ></DesiredYardageCountTable>
+            </div>
+
 
         </div>);
     }
