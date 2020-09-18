@@ -21,25 +21,25 @@ class MarkerDepthTable extends Component<{ dataService: DataService }, { parFilt
         } else {
             holeIds = this.props.dataService.getAllHoleIds(this.state.parFilter);
         }
-        const markerIds = this.props.dataService.getAllMarkerIds();
+        const teeBoxIds = this.props.dataService.getAllTeeboxIds();
 
         // construct header row
         const headerRow: string[] = [];
-        headerRow.push('Marker Id');
+        headerRow.push('Teebox Id');
         holeIds.forEach((holeId) => {
             headerRow.push('Hole #' + holeId.toString());
         });
         headerRow.push('Total');
 
         // construct data rows
-        const dataRows = markerIds.map((markerId) => {
+        const dataRows = teeBoxIds.map((markerId) => {
             // construct data row
             const dataRow: string[] = [];
             dataRow.push(markerId.toString());
             let depthSum = 0;
             let deltaSum = 0;
             holeIds.forEach((holeId) => {
-                const markerInfo = this.props.dataService.getMarkerInfoForHole(holeId, markerId);
+                const markerInfo = this.props.dataService.getTeeboxInfoForHole(holeId, markerId);
                 // default
                 let cellVal = '-';
                 if (markerInfo) {

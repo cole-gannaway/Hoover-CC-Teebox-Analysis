@@ -9,17 +9,6 @@ export class DataService {
   public getAllData() {
     return this.course;
   }
-  /* This will disappear when all data is present */
-  public getAllHoleIdsWithMarkers() {
-    const fitleredHoles = this.course.holes.filter((hole) => {
-      if (hole.markers) return true;
-      else return false;
-    });
-    const holeIds = fitleredHoles.map((hole) => {
-      return hole.id;
-    });
-    return holeIds;
-  }
   public getAllHoleIds(parFilter: string | null) {
     // apply filters
     let fitleredHoles = this.course.holes;
@@ -70,37 +59,36 @@ export class DataService {
     }
     return retVal;
   }
-  public getAllMarkerIds() {
-    const allIds: string[] = [];
+  public getAllTeeboxIds() {
+    const allIds: number[] = [];
     this.course.holes.forEach((hole) => {
-      if (hole.markers) {
-        const pinLocationIdsForHole = hole.markers.map((pinLocation) => {
-          return pinLocation.id;
+      if (hole.teeboxes) {
+        const teeBoxIdsForHole = hole.teeboxes.map((teebox) => {
+          return teebox.id;
         });
         // add all new ids
-        pinLocationIdsForHole.forEach((id) => {
+        teeBoxIdsForHole.forEach((id) => {
           if (!allIds.includes(id)) {
             allIds.push(id);
           }
         });
       }
     });
-    allIds.sort((a: string, b: string) => a.localeCompare(b));
     return allIds;
   }
-  public getMarkerInfoForHole(holeId: number, markerId: string) {
+  public getTeeboxInfoForHole(holeId: number, teeBoxId: number) {
     let retVal = null;
     const foundHole = this.course.holes.find((hole) => hole.id === holeId);
     if (foundHole) {
-      if (foundHole.markers) {
-        const foundMarkerInfo = foundHole.markers.find(
-          (marker) => marker.id === markerId
+      if (foundHole.teeboxes) {
+        const foundTeeBoxInfo = foundHole.teeboxes.find(
+          (teeBox) => teeBox.id === teeBoxId
         );
-        if (foundMarkerInfo) {
-          retVal = foundMarkerInfo;
+        if (foundTeeBoxInfo) {
+          retVal = foundTeeBoxInfo;
         } else {
           console.log(
-            "Could not find marker " + markerId + " at hole " + holeId + "."
+            "Could not find teeBox " + teeBoxId + " at hole " + holeId + "."
           );
         }
       }

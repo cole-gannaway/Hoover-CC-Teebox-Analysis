@@ -1,9 +1,9 @@
-import { IMarker } from "./IMarker";
 import { IPinLocation } from "./IPinLocation";
+import { ITeeBox } from "./ITeeBox";
 
 export interface IHole {
   id: number;
   pinLocations: IPinLocation[];
   par: number;
-  markers?: IMarker[];
+  teeboxes?: ITeeBox[];
 }

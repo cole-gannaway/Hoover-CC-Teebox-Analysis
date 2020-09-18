@@ -37,11 +37,11 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
         <h3>Pin Depths</h3>
         <PinDepthTable dataService={this.state.dataService}></PinDepthTable>
         <h3>Teebox Depths</h3>
-        <div>{'(Teebox depth / 2) - 1'}</div>
+        <div>{'(Teebox Depth / 2) - 1'}</div>
         <br></br>
         <MarkerDepthTable dataService={this.state.dataService}></MarkerDepthTable>
         <h3>Course Analysis</h3>
-        <div>{'Yardage + Pin Depth + Slope \xB1 Marker Depth'}</div>
+        <div>{'Yardage + Pin Depth + Slope \xB1 Teebox Depth'}</div>
         <br></br>
         <CourseAnalysisTable dataService={this.state.dataService}></CourseAnalysisTable>
         <h3>Hole Yardages</h3>

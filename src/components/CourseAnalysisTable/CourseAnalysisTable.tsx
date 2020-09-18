@@ -5,16 +5,16 @@ import SelectAPI from '../SelectAPI/SelectAPI';
 import { YardageUtils } from '../../services/yardage-utils';
 
 const options = ['Any', '3', '4', '5'];
-class CourseAnalysisTable extends Component<{ dataService: DataService }, { parFilter: string, markerFilter: string }> {
+class CourseAnalysisTable extends Component<{ dataService: DataService }, { parFilter: string, teeBoxFilter: string }> {
 
     constructor(props: any) {
         super(props);
         this.state = {
             parFilter: '3',
-            markerFilter: '1'
+            teeBoxFilter: '1'
         }
         this.handleParFilterChange = this.handleParFilterChange.bind(this);
-        this.handleMarkerFilterChange = this.handleMarkerFilterChange.bind(this);
+        this.handleTeeBoxFilterChange = this.handleTeeBoxFilterChange.bind(this);
     }
     public render() {
         let holeIds: number[] = [];
@@ -23,10 +23,10 @@ class CourseAnalysisTable extends Component<{ dataService: DataService }, { parF
         } else {
             holeIds = this.props.dataService.getAllHoleIds(this.state.parFilter);
         }
-        const markerIds = this.props.dataService.getAllMarkerIds();
+        const teeBoxIds = this.props.dataService.getAllTeeboxIds();
         const pinIds = this.props.dataService.getAllPinLocationIds();
 
-        const markerId = this.state.markerFilter;
+        const teeBoxId = parseInt(this.state.teeBoxFilter);
 
         // construct header row
         const headerRow: string[] = [];
@@ -44,15 +44,15 @@ class CourseAnalysisTable extends Component<{ dataService: DataService }, { parF
             let maxSum = 0;
             let minSum = 0;
             holeIds.forEach((holeId) => {
-                const markerInfo = this.props.dataService.getMarkerInfoForHole(holeId, markerId);
+                const teeBoxInfo = this.props.dataService.getTeeboxInfoForHole(holeId, teeBoxId);
                 const pinInfo = this.props.dataService.getPinInfoForHole(holeId, pinId);
                 // default
                 let cellVal = '-';
-                if (markerInfo && pinInfo) {
-                    const yardage = markerInfo.yardage;
+                if (teeBoxInfo && pinInfo) {
+                    const yardage = teeBoxInfo.yardage;
                     const pinDepth = pinInfo.depth;
-                    const markerDepth = markerInfo.depth;
-                    const slope = markerInfo.slope;
+                    const markerDepth = teeBoxInfo.depth;
+                    const slope = teeBoxInfo.slope;
                     const markerDepthDelta = YardageUtils.computePlusMinus(markerDepth);
                     // max
                     const highTotal = yardage + pinDepth + slope + markerDepthDelta;
@@ -72,11 +72,11 @@ class CourseAnalysisTable extends Component<{ dataService: DataService }, { parF
         finalData.push(headerRow);
         dataRows.forEach((row) => finalData.push(row));
 
-        const markerIdsAsStr = markerIds.map((id) => id.toString());
+        const teeBoxIdsAsStr = teeBoxIds.map((id) => id.toString());
         return (<div>
             <div>
                 Par <SelectAPI value={this.state.parFilter} options={options} handleChange={this.handleParFilterChange}></SelectAPI>
-                Marker <SelectAPI value={this.state.markerFilter} options={markerIdsAsStr} handleChange={this.handleMarkerFilterChange}></SelectAPI>
+                Teebox <SelectAPI value={this.state.teeBoxFilter} options={teeBoxIdsAsStr} handleChange={this.handleTeeBoxFilterChange}></SelectAPI>
             </div>
             <DataTableApi data={finalData}></DataTableApi>
         </div>);
@@ -85,8 +85,8 @@ class CourseAnalysisTable extends Component<{ dataService: DataService }, { parF
         this.setState({ parFilter: newVal });
     }
 
-    public handleMarkerFilterChange(newVal: string) {
-        this.setState({ markerFilter: newVal });
+    public handleTeeBoxFilterChange(newVal: string) {
+        this.setState({ teeBoxFilter: newVal });
     }
 
 }

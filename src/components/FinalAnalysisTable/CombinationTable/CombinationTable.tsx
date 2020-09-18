@@ -35,16 +35,16 @@ class CombinationTable extends Component<{ dataService: DataService, holeIds: nu
                 if (found) {
                     // show calculations
                     const pinInfo = this.props.dataService.getPinInfoForHole(found.holeId, found.pinId);
-                    const markerInfo = this.props.dataService.getMarkerInfoForHole(found.holeId, found.markerId);
-                    if (pinInfo && markerInfo) {
+                    const teeBoxInfo = this.props.dataService.getTeeboxInfoForHole(found.holeId, found.teeBoxId);
+                    if (pinInfo && teeBoxInfo) {
                         // constants
-                        const yardage = markerInfo.yardage;
-                        const slope = markerInfo.slope;
+                        const yardage = teeBoxInfo.yardage;
+                        const slope = teeBoxInfo.slope;
                         const pinDepth = pinInfo.depth;
                         const constantYardage = yardage + pinDepth + slope;
                         const markerAdjustment = found.desiredYardage - constantYardage;
 
-                        cellVal = yardage.toString() + ' + ' + pinDepth.toString() + ' + ' + slope.toString() + ' + ' + markerAdjustment.toString() + ' = ' + found.desiredYardage.toString() + ' => Marker# ' + markerInfo.id;
+                        cellVal = yardage.toString() + ' + ' + pinDepth.toString() + ' + ' + slope.toString() + ' + ' + markerAdjustment.toString() + ' = ' + found.desiredYardage.toString() + ' => Teebox# ' + teeBoxInfo.id;
                     }
 
                 }

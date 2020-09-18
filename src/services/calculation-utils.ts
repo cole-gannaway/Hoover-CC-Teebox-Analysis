@@ -7,24 +7,24 @@ export class CalculationUtils {
     dataService: DataService,
     holeId: number,
     pinId: number,
-    markerId: string,
+    teeBoxId: number,
     desiredYardage: number
   ) {
     let retVal = false;
     // get pinInfo for the hole
     const pinInfo = dataService.getPinInfoForHole(holeId, pinId);
-    // if markerInfo can get the desiredYardage then add it
-    const markerInfo = dataService.getMarkerInfoForHole(holeId, markerId);
-    if (pinInfo && markerInfo) {
+    // if teeBoxInfo can get the desiredYardage then add it
+    const teeBoxInfo = dataService.getTeeboxInfoForHole(holeId, teeBoxId);
+    if (pinInfo && teeBoxInfo) {
       // constants
-      const yardage = markerInfo.yardage;
-      const slope = markerInfo.slope;
+      const yardage = teeBoxInfo.yardage;
+      const slope = teeBoxInfo.slope;
       const pinDepth = pinInfo.depth;
       const constantYardage = yardage + pinDepth + slope;
-      const markerDelta = YardageUtils.computePlusMinus(markerInfo.depth);
+      const markerDelta = YardageUtils.computePlusMinus(teeBoxInfo.depth);
       const desiredYardageDelta = constantYardage - desiredYardage;
       const absDesiredYardageDelta = Math.abs(desiredYardageDelta);
-      // this hole, pin, and marker combination can be used for this desired yardage
+      // this hole, pin, and teeBox combination can be used for this desired yardage
       if (absDesiredYardageDelta < markerDelta) retVal = true;
     }
 

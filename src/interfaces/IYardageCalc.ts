@@ -1,6 +1,6 @@
 export interface IYardageCalc {
   desiredYardage: number;
-  markerId: string;
+  teeBoxId: number;
   pinId: number;
   holeId: number;
 }
