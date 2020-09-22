@@ -7,7 +7,7 @@ import FinalAnalysisTable from '../FinalAnalysisTable/FinalAnalysisTable';
 import SlopeTable from '../SlopeTable/SlopeTable';
 import { DataService } from '../../services/data-service';
 
-class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: number, dataService: DataService }> {
+class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: number, dataService: DataService, reRender: boolean }> {
 
 
   constructor(props: any) {
@@ -16,11 +16,13 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
     this.state = {
       pinLocationId: 1,
       overviewPinDepthSum: 0,
-      dataService: createdDataService
+      dataService: createdDataService,
+      reRender: false
     }
     this.handlePinLocationIdChange = this.handlePinLocationIdChange.bind(this);
     this.handleUploadFileChange = this.handleUploadFileChange.bind(this);
     this.setDataServiceToNewFile = this.setDataServiceToNewFile.bind(this);
+    this.reRender = this.reRender.bind(this);
   }
 
   public render() {
@@ -32,7 +34,7 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
           <div>Download Original Data: <a href='https://drive.google.com/file/d/1C0cUoiSHonKCfyXHYroZLH3DznETKwGB/view?usp=sharing' >Download</a></div>
         </div>
         <h1>Final Analysis</h1>
-        <FinalAnalysisTable dataService={this.state.dataService}></FinalAnalysisTable>
+        <FinalAnalysisTable dataService={this.state.dataService} reRender={this.reRender}></FinalAnalysisTable>
         <h1>Data Overview</h1>
         <h3>Pin Depths</h3>
         <PinDepthTable dataService={this.state.dataService}></PinDepthTable>
@@ -77,6 +79,11 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
     createdDataService.setCourse(data);
     this.setState({ dataService: createdDataService });
   }
+
+  public reRender() {
+    this.setState({ reRender: !this.state.reRender });
+  }
+
 }
 
 export default Main;

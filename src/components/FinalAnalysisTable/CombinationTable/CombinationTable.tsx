@@ -4,7 +4,7 @@ import DataTableApi from '../../DataTableApi/DataTableApi';
 import { CalculationUtils } from '../../../services/calculation-utils';
 import { DataService } from '../../../services/data-service';
 
-class CombinationTable extends Component<{ dataService: DataService, holeIds: number[], desiredYardages: number[], yardageCalcArr: IYardageCalc[] }, {}> {
+class CombinationTable extends Component<{ dataService: DataService, holeIds: number[], mixAndMatchPinIdsAllowed: boolean, desiredYardages: number[], yardageCalcArr: IYardageCalc[] }, {}> {
 
     constructor(props: any) {
         super(props);
@@ -19,7 +19,7 @@ class CombinationTable extends Component<{ dataService: DataService, holeIds: nu
         });
 
         // compute combinations
-        const combos = CalculationUtils.findAllCombos(this.props.holeIds, this.props.desiredYardages, this.props.yardageCalcArr);
+        const combos = CalculationUtils.findAllCombos(this.props.holeIds, this.props.desiredYardages, this.props.mixAndMatchPinIdsAllowed, this.props.yardageCalcArr);
         combos.sort((a: IYardageCalc[], b: IYardageCalc[]) => {
             return a[0].pinId - b[0].pinId;
         });

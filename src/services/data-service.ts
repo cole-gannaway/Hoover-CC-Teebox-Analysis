@@ -1,14 +1,22 @@
+import { IAdjustablePinInfo } from "../interfaces/IAdjustablePinInfo";
 import testData from "../resources/data.json";
 import { ICourse } from "../resources/interfaces/ICourse";
 
 export class DataService {
   private course: ICourse = testData;
+  private adjustablePinDepths: IAdjustablePinInfo[] = [];
+  private adjustablePinId: number = 7;
   setCourse(course: ICourse) {
     this.course = course;
   }
   public getAllData() {
     return this.course;
   }
+
+  public setAdjustablePinDepths(newVal: IAdjustablePinInfo[]) {
+    this.adjustablePinDepths = newVal;
+  }
+
   public getAllHoleIds(parFilter: string | null) {
     // apply filters
     let fitleredHoles = this.course.holes;
@@ -38,6 +46,8 @@ export class DataService {
         }
       });
     });
+    this.adjustablePinId = allIds.length + 1;
+    allIds.push(this.adjustablePinId);
     return allIds;
   }
   public getPinInfoForHole(holeId: number, pinId: number) {
@@ -53,6 +63,20 @@ export class DataService {
         console.log(
           "Could not find pin location " + pinId + " at hole " + holeId + "."
         );
+
+        if (pinId === this.adjustablePinId) {
+          const foundAdjustableInfo = this.adjustablePinDepths.find(
+            (pinInfo) => pinInfo.holeId === holeId
+          );
+          if (foundAdjustableInfo) {
+            retVal = {
+              id: pinId,
+              depth: foundAdjustableInfo.depth,
+            };
+          } else {
+            console.log("Couldn't find adjustable pin Depth");
+          }
+        }
       }
     } else {
       console.log("Could not find hole " + holeId + ".");

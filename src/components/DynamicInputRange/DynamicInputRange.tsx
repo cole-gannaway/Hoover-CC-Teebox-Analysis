@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 
-type DynamicInputProps = {
+type DynamicInputRangeProps = {
     //
     value: number,
-    index: number
+    index: number,
+    max: number,
+    min: number,
     handleChange(i: number, value: number): void
 };
 
-class DynamicInput extends Component<DynamicInputProps, any> {
-    constructor(props: DynamicInputProps) {
+class DynamicInputRange extends Component<DynamicInputRangeProps, any> {
+    constructor(props: DynamicInputRangeProps) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
     public render() {
 
         return <div>
-
-            <input type="range" min={50} max={250} value={this.props.value} onChange={this.handleChange}></input><input type="number" value={this.props.value} onChange={this.handleChange} ></input>
+            <input type="range" min={this.props.min} max={this.props.max} value={this.props.value} onChange={this.handleChange}></input><input type="number" value={this.props.value} onChange={this.handleChange} ></input>
         </div>;
     }
     public handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -29,4 +30,4 @@ class DynamicInput extends Component<DynamicInputProps, any> {
     }
 }
 
-export default DynamicInput;
+export default DynamicInputRange;

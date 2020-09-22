@@ -33,6 +33,7 @@ export class CalculationUtils {
   public static findAllCombos(
     holeIds: number[],
     desiredYardages: number[],
+    mixAndMatchPinIdsAllowed: boolean,
     yardageCalcArr: IYardageCalc[]
   ): IYardageCalc[][] {
     const combos: IYardageCalc[][] = [];
@@ -42,6 +43,7 @@ export class CalculationUtils {
       combos,
       holeIds,
       desiredYardages,
+      mixAndMatchPinIdsAllowed,
       yardageCalcArr
     );
     return combos;
@@ -51,6 +53,7 @@ export class CalculationUtils {
     combos: IYardageCalc[][],
     holeIds: number[],
     desiredYardages: number[],
+    mixAndMatchPinIdsAllowed: boolean,
     possibleValues: IYardageCalc[]
   ) {
     // success base case
@@ -65,7 +68,8 @@ export class CalculationUtils {
     // filter out
     const filtered: IYardageCalc[] = this.filterPossibleValues(
       possibleValues,
-      combo
+      combo,
+      mixAndMatchPinIdsAllowed
     );
     while (filtered.length !== 0) {
       const lastElement = filtered.pop();
@@ -78,6 +82,7 @@ export class CalculationUtils {
           combos,
           holeIds,
           desiredYardages,
+          mixAndMatchPinIdsAllowed,
           filtered
         );
         // remove from combo
@@ -87,7 +92,8 @@ export class CalculationUtils {
   }
   public static filterPossibleValues(
     possibleValues: IYardageCalc[],
-    combo: IYardageCalc[]
+    combo: IYardageCalc[],
+    mixAndMatchPinIdsAllowed: boolean
   ): IYardageCalc[] {
     const comboHoleIds = combo.map((val) => val.holeId);
     const comboDesiredYardages = combo.map((val) => val.desiredYardage);
@@ -95,7 +101,7 @@ export class CalculationUtils {
       return possibleValues;
     } else {
       const comboPinId = combo[0].pinId;
-      const filtered = possibleValues
+      let filtered = possibleValues
         .filter((val) => {
           return (
             comboHoleIds.findIndex((holeId) => val.holeId === holeId) === -1
@@ -107,14 +113,18 @@ export class CalculationUtils {
               (dy) => val.desiredYardage === dy
             ) === -1
           );
-        })
-        .filter((val) => {
+        });
+      // mix and matching pin ids
+      if (!mixAndMatchPinIdsAllowed) {
+        filtered = filtered.filter((val) => {
           if (comboPinId) {
             return val.pinId === comboPinId;
           } else {
             return false;
           }
         });
+      }
+
       return filtered;
     }
   }
