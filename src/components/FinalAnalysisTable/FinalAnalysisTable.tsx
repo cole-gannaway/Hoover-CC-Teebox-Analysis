@@ -7,7 +7,6 @@ import { IYardageCalc } from '../../interfaces/IYardageCalc';
 import DesiredYardageCountTable from './DesiredYardageCountTable/DesiredYardageCountTable';
 import CombinationTable from './CombinationTable/CombinationTable';
 import { IAdjustablePinInfo } from '../../interfaces/IAdjustablePinInfo';
-import { create } from 'domain';
 
 
 const parOptions = ['3', '4', '5'];
