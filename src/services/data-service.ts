@@ -46,8 +46,6 @@ export class DataService {
         }
       });
     });
-    this.adjustablePinId = allIds.length + 1;
-    allIds.push(this.adjustablePinId);
     return allIds;
   }
   public getPinInfoForHole(holeId: number, pinId: number) {
@@ -60,9 +58,7 @@ export class DataService {
       if (foundPinLocationInfo) {
         retVal = foundPinLocationInfo;
       } else {
-        console.log(
-          "Could not find pin location " + pinId + " at hole " + holeId + "."
-        );
+        // console.log("Could not find pin location " + pinId + " at hole " + holeId + ".");
 
         if (pinId === this.adjustablePinId) {
           const foundAdjustableInfo = this.adjustablePinDepths.find(
@@ -74,7 +70,7 @@ export class DataService {
               depth: foundAdjustableInfo.depth,
             };
           } else {
-            console.log("Couldn't find adjustable pin Depth");
+            // console.log("Couldn't find adjustable pin depth for pin " + pinId + " and hole " + holeId + ".");
           }
         }
       }
@@ -111,9 +107,7 @@ export class DataService {
         if (foundTeeBoxInfo) {
           retVal = foundTeeBoxInfo;
         } else {
-          console.log(
-            "Could not find teeBox " + teeBoxId + " at hole " + holeId + "."
-          );
+          // console.log("Could not find teeBox " + teeBoxId + " at hole " + holeId + ".");
         }
       }
     } else {

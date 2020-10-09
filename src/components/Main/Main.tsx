@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import PinDepthTable from '../PinDepthTable/PinDepthTable';
-import MarkerDepthTable from '../MarkerDepthTable/MarkerDepthTable';
-import HoleYardageTable from '../HoleYardageTable/HoleYardageTable';
-import CourseAnalysisTable from '../CourseAnalysisTable/CourseAnalysisTable';
-import FinalAnalysisTable from '../FinalAnalysisTable/FinalAnalysisTable';
-import SlopeTable from '../SlopeTable/SlopeTable';
 import { DataService } from '../../services/data-service';
+import AppBar from '@material-ui/core/AppBar/AppBar';
+import Tabs from '@material-ui/core/Tabs/Tabs';
+import Tab from '@material-ui/core/Tab/Tab';
+import DataPage from '../DataPage/DataPage';
 
-class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: number, dataService: DataService, reRender: boolean }> {
-
-
+class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: number, dataService: DataService, tabIndex: number }> {
   constructor(props: any) {
     super(props);
     const createdDataService = new DataService();
@@ -17,45 +13,37 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
       pinLocationId: 1,
       overviewPinDepthSum: 0,
       dataService: createdDataService,
-      reRender: false
+      tabIndex: 0,
     }
     this.handlePinLocationIdChange = this.handlePinLocationIdChange.bind(this);
-    this.handleUploadFileChange = this.handleUploadFileChange.bind(this);
+    this.handleTabIndexChange = this.handleTabIndexChange.bind(this);
     this.setDataServiceToNewFile = this.setDataServiceToNewFile.bind(this);
-    this.reRender = this.reRender.bind(this);
+
   }
 
   public render() {
+    const appBar = (<AppBar position="static">
+      <Tabs value={this.state.tabIndex} onChange={this.handleTabIndexChange} aria-label="simple tabs example">
+        <Tab label="Tool" />
+        <Tab label="Data" />
+      </Tabs>
+    </AppBar>);
+    let page = (<div></div>);
+    switch (this.state.tabIndex) {
+      case 0:
+        page = (<div><h2>Tool coming soon!</h2></div>);
+        break;
+      case 1:
+        page = (<DataPage dataService={this.state.dataService}></DataPage>)
+        break;
+      default:
+        break;
+    }
     return (<div>
+      {appBar}
       <div>
-        <h1>Custom Inputs</h1>
-        <div>
-          <div>Upload <input type="file" accept=".json" onChange={this.handleUploadFileChange}></input></div>
-          <div>Download Original Data: <a href='https://drive.google.com/file/d/1C0cUoiSHonKCfyXHYroZLH3DznETKwGB/view?usp=sharing' >Download</a></div>
-        </div>
-        <h1>Final Analysis</h1>
-        <FinalAnalysisTable dataService={this.state.dataService} reRender={this.reRender}></FinalAnalysisTable>
-        <h1>Data Overview</h1>
-        <h3>Pin Depths</h3>
-        <PinDepthTable dataService={this.state.dataService}></PinDepthTable>
-        <h3>Teebox Depths</h3>
-        <div>{'(Teebox Depth / 2) - 1'}</div>
-        <br></br>
-        <MarkerDepthTable dataService={this.state.dataService}></MarkerDepthTable>
-        <h3>Course Analysis</h3>
-        <div>{'Yardage + Pin Depth + Slope \xB1 Teebox Depth'}</div>
-        <br></br>
-        <CourseAnalysisTable dataService={this.state.dataService}></CourseAnalysisTable>
-        <h3>Hole Yardages</h3>
-        <HoleYardageTable dataService={this.state.dataService}></HoleYardageTable>
-        <h3>Slope Table</h3>
-        <SlopeTable dataService={this.state.dataService}></SlopeTable>
-
-
+        {page}
       </div>
-      <br></br>
-      <br></br>
-
     </div>);
   }
 
@@ -64,24 +52,14 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
     this.setState({ pinLocationId: val });
   }
 
-  public handleUploadFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-    var reader = new FileReader();
-    const callBack = this.setDataServiceToNewFile;
-    reader.onloadend = function (ev: ProgressEvent<FileReader>) {
-      if (ev && ev.target && ev.target.result)
-        callBack(JSON.parse(ev.target.result.toString()));
-    }
-    if (event.target.files)
-      reader.readAsText(event.target.files[0]);
+  public handleTabIndexChange(event: React.ChangeEvent<{}>, value: any) {
+    const index = parseInt(value);
+    this.setState({ tabIndex: index });
   }
   public setDataServiceToNewFile(data: any) {
     const createdDataService = new DataService();
     createdDataService.setCourse(data);
     this.setState({ dataService: createdDataService });
-  }
-
-  public reRender() {
-    this.setState({ reRender: !this.state.reRender });
   }
 
 }

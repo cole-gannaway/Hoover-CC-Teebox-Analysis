@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { DataService } from '../../services/data-service';
+import { DataService } from '../../../services/data-service';
 import DataTableApi from '../DataTableApi/DataTableApi';
-import SelectAPI from '../SelectAPI/SelectAPI';
+import SelectAPI from '../../SelectAPI/SelectAPI';
 
 const options = ['Any', '3', '4', '5'];
-class PinDepthTable extends Component<{ dataService: DataService }, { parFilter: string }> {
+class HoleYardageTable extends Component<{ dataService: DataService }, { parFilter: string }> {
 
   constructor(props: any) {
     super(props);
@@ -21,35 +21,37 @@ class PinDepthTable extends Component<{ dataService: DataService }, { parFilter:
     } else {
       holeIds = this.props.dataService.getAllHoleIds(this.state.parFilter);
     }
-    const pinLocationIds = this.props.dataService.getAllPinLocationIds();
+    const teeBoxIds = this.props.dataService.getAllTeeboxIds();
 
     // construct header row
     const headerRow: string[] = [];
-    headerRow.push('Pin Location Id');
+    headerRow.push('Teebox Id');
     holeIds.forEach((holeId) => {
       headerRow.push('Hole #' + holeId.toString());
     });
     headerRow.push('Total');
 
     // construct data rows
-    const dataRows = pinLocationIds.map((pinId) => {
+    const dataRows = teeBoxIds.map((markerId) => {
       // construct data row
       const dataRow: string[] = [];
-      dataRow.push(pinId.toString());
-      let rowSum = 0;
+      dataRow.push(markerId.toString());
+      let yardageSum = 0;
       holeIds.forEach((holeId) => {
-        const pinInfo = this.props.dataService.getPinInfoForHole(holeId, pinId);
+        const markerInfo = this.props.dataService.getTeeboxInfoForHole(holeId, markerId);
         // default
         let cellVal = '-';
-        if (pinInfo) {
-          rowSum += pinInfo.depth;
-          cellVal = pinInfo.depth.toString();
+        if (markerInfo) {
+          const yardage = markerInfo.yardage;
+          yardageSum += yardage;
+          cellVal = yardage.toString();
         }
         dataRow.push(cellVal);
       });
-      dataRow.push(rowSum.toString());
+      dataRow.push(yardageSum.toString());
       return dataRow;
     });
+
 
 
     const finalData: string[][] = [];
@@ -69,4 +71,4 @@ class PinDepthTable extends Component<{ dataService: DataService }, { parFilter:
   }
 }
 
-export default PinDepthTable;
+export default HoleYardageTable;

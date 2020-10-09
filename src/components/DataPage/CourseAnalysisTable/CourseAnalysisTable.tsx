@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { DataService } from '../../services/data-service';
-import DataTableApi from '../DataTableApi/DataTableApi';
-import SelectAPI from '../SelectAPI/SelectAPI';
-import { YardageUtils } from '../../services/yardage-utils';
+import { DataService } from '../../../services/data-service';
+import DataTableApi from '../../DataPage/DataTableApi/DataTableApi';
+import SelectAPI from '../../SelectAPI/SelectAPI';
+import { YardageUtils } from '../../../services/yardage-utils';
 
 const options = ['Any', '3', '4', '5'];
 class CourseAnalysisTable extends Component<{ dataService: DataService }, { parFilter: string, teeBoxFilter: string }> {

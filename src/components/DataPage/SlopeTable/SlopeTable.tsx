@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { DataService } from '../../services/data-service';
+import { DataService } from '../../../services/data-service';
 import DataTableApi from '../DataTableApi/DataTableApi';
-import SelectAPI from '../SelectAPI/SelectAPI';
+import SelectAPI from '../../SelectAPI/SelectAPI';
 
 const options = ['Any', '3', '4', '5'];
 class SlopeTable extends Component<{ dataService: DataService }, { parFilter: string }> {
