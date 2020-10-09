@@ -6,6 +6,7 @@ import CourseAnalysisTable from '../CourseAnalysisTable/CourseAnalysisTable';
 import FinalAnalysisTable from '../FinalAnalysisTable/FinalAnalysisTable';
 import SlopeTable from '../SlopeTable/SlopeTable';
 import { DataService } from '../../services/data-service';
+import RangeChartContainer from '../RangeChartContainer/RangeChartContainer';
 
 class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: number, dataService: DataService, reRender: boolean }> {
 
@@ -26,7 +27,11 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
   }
 
   public render() {
+
     return (<div>
+      <div>
+        <RangeChartContainer dataService={this.state.dataService}></RangeChartContainer>
+      </div>
       <div>
         <h1>Custom Inputs</h1>
         <div>

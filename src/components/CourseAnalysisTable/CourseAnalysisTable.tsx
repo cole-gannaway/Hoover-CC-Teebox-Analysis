@@ -3,6 +3,8 @@ import { DataService } from '../../services/data-service';
 import DataTableApi from '../DataTableApi/DataTableApi';
 import SelectAPI from '../SelectAPI/SelectAPI';
 import { YardageUtils } from '../../services/yardage-utils';
+import RangeChart from '../RangeChart/RangeChart';
+import { IRangeChartData } from '../../interfaces/IRangeChartData';
 
 const options = ['Any', '3', '4', '5'];
 class CourseAnalysisTable extends Component<{ dataService: DataService }, { parFilter: string, teeBoxFilter: string }> {
@@ -36,6 +38,7 @@ class CourseAnalysisTable extends Component<{ dataService: DataService }, { parF
         });
         headerRow.push('Total');
 
+        const chartData: IRangeChartData[] = [];
         // construct data rows
         const dataRows = pinIds.map((pinId) => {
             // construct data row
@@ -60,6 +63,7 @@ class CourseAnalysisTable extends Component<{ dataService: DataService }, { parF
                     // min
                     const lowTotal = yardage + pinDepth + slope - markerDepthDelta;
                     minSum += lowTotal;
+
                     cellVal = yardage.toString() + ' + ' + pinDepth.toString() + ' + ' + slope.toString() + ' \xB1  ' + markerDepthDelta.toString() + ' = ( ' + lowTotal.toString() + ', ' + highTotal.toString() + ' )';
                 }
                 dataRow.push(cellVal);
