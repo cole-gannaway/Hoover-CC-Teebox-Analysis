@@ -1,20 +1,16 @@
-import { IAdjustablePinInfo } from "../interfaces/IAdjustablePinInfo";
+import { IRangeInfo } from "../interfaces/IRangeInfo";
 import testData from "../resources/data.json";
 import { ICourse } from "../resources/interfaces/ICourse";
+import { YardageUtils } from "./yardage-utils";
 
 export class DataService {
   private course: ICourse = testData;
-  private adjustablePinDepths: IAdjustablePinInfo[] = [];
-  private adjustablePinId: number = 7;
+  private cachedCourseRangesInfo: IRangeInfo[] | null = null;
   setCourse(course: ICourse) {
     this.course = course;
   }
   public getAllData() {
     return this.course;
-  }
-
-  public setAdjustablePinDepths(newVal: IAdjustablePinInfo[]) {
-    this.adjustablePinDepths = newVal;
   }
 
   public getAllHoleIds(parFilter: string | null) {
@@ -59,20 +55,6 @@ export class DataService {
         retVal = foundPinLocationInfo;
       } else {
         // console.log("Could not find pin location " + pinId + " at hole " + holeId + ".");
-
-        if (pinId === this.adjustablePinId) {
-          const foundAdjustableInfo = this.adjustablePinDepths.find(
-            (pinInfo) => pinInfo.holeId === holeId
-          );
-          if (foundAdjustableInfo) {
-            retVal = {
-              id: pinId,
-              depth: foundAdjustableInfo.depth,
-            };
-          } else {
-            // console.log("Couldn't find adjustable pin depth for pin " + pinId + " and hole " + holeId + ".");
-          }
-        }
       }
     } else {
       console.log("Could not find hole " + holeId + ".");
@@ -114,5 +96,42 @@ export class DataService {
       console.log("Could not find hole " + holeId + ".");
     }
     return retVal;
+  }
+  public getAllRanges() {
+    if (this.cachedCourseRangesInfo == null) {
+      const ranges: IRangeInfo[] = [];
+      this.course.holes.forEach((hole) => {
+        const holeId = hole.id;
+        if (hole.teeboxes) {
+          hole.teeboxes.forEach((teebox) => {
+            const teeboxId = teebox.id;
+            const teeboxDepth = teebox.depth;
+            const slope = teebox.slope;
+            const yardage = teebox.yardage;
+            hole.pinLocations.forEach((pinLocation) => {
+              const pinId = pinLocation.id;
+              const pinDepth = pinLocation.depth;
+              // compute delta
+              const teeboxDelta = YardageUtils.computePlusMinus(teeboxDepth);
+              const max = yardage + pinDepth + slope + teeboxDelta;
+              const min = yardage + pinDepth + slope - teeboxDelta;
+              ranges.push({
+                holeId: holeId,
+                teeboxId: teeboxId,
+                pinId: pinId,
+                min: min,
+                max: max,
+                delta: teeboxDelta,
+              });
+            });
+          });
+        } else {
+          // console.log("No teebox info for hole " + holeId);
+        }
+      });
+      // cache results
+      this.cachedCourseRangesInfo = ranges;
+    }
+    return this.cachedCourseRangesInfo;
   }
 }

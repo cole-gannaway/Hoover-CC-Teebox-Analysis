@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar/AppBar';
 import Tabs from '@material-ui/core/Tabs/Tabs';
 import Tab from '@material-ui/core/Tab/Tab';
 import DataPage from '../DataPage/DataPage';
+import ToolPage from '../ToolPage/ToolPage';
 
 class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: number, dataService: DataService, tabIndex: number }> {
   constructor(props: any) {
@@ -31,7 +32,7 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
     let page = (<div></div>);
     switch (this.state.tabIndex) {
       case 0:
-        page = (<div><h2>Tool coming soon!</h2></div>);
+        page = (<ToolPage dataService={this.state.dataService}></ToolPage>);
         break;
       case 1:
         page = (<DataPage dataService={this.state.dataService}></DataPage>)
