@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { DataService } from '../../services/data-service';
+import { DataService } from '../../../services/data-service';
 import DataTableApi from '../DataTableApi/DataTableApi';
-import SelectAPI from '../SelectAPI/SelectAPI';
-import { YardageUtils } from '../../services/yardage-utils';
+import SelectAPI from '../../SelectAPI/SelectAPI';
+import { YardageUtils } from '../../../services/yardage-utils';
 
 const options = ['Any', '3', '4', '5'];
 class MarkerDepthTable extends Component<{ dataService: DataService }, { parFilter: string }> {
