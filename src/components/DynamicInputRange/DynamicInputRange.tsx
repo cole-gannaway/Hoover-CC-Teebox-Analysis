@@ -17,7 +17,7 @@ class DynamicInputRange extends Component<DynamicInputRangeProps, any> {
     public render() {
 
         return <div>
-            <input type="range" min={this.props.min} max={this.props.max} value={this.props.value} onChange={this.handleChange}></input><input type="number" value={this.props.value} onChange={this.handleChange} ></input>
+            <input type="number" value={this.props.value} onChange={this.handleChange} ></input>
         </div>;
     }
     public handleChange(event: React.ChangeEvent<HTMLInputElement>) {

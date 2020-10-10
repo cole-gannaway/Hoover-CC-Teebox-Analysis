@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DataService } from '../../../services/data-service';
-import DataTableApi from '../DataTableApi/DataTableApi';
+import DataTableApi from '../../DataTableApi/DataTableApi';
 import SelectAPI from '../../SelectAPI/SelectAPI';
 
 const options = ['Any', '3', '4', '5'];
