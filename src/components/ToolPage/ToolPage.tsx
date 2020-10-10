@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { DataService } from '../../services/data-service';
 import DynamicInputRange from '../DynamicInputRange/DynamicInputRange';
+import RangeChart from './RangeChart/RangeChart';
 
 
 class ToolPage extends Component<{ dataService: DataService }, { desiredYardages: number[] }> {
@@ -13,20 +14,20 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
     }
     public render() {
         const ranges = this.props.dataService.getAllRanges();
-        const holeIds: number[] = [];
 
-        // add holeIds
+        // create hole ids from ranges
+        const holeIds: number[] = [];
         ranges.forEach((rangeInfo) => {
             if (holeIds.findIndex((value) => value === rangeInfo.holeId) === -1) {
                 holeIds.push(rangeInfo.holeId);
             }
         });
 
+        // create rangesPerHole
         const rangesPerHoleId = holeIds.map((holeId, i) => {
-            return ranges.filter((rangeInfo) => rangeInfo.holeId === holeId);
+            const desiredYardage = this.state.desiredYardages[i];
+            return ranges.filter((rangeInfo) => rangeInfo.holeId === holeId).filter((rangeInfo) => rangeInfo.min <= desiredYardage && rangeInfo.max >= desiredYardage);
         });
-
-
 
         const numberInputs = holeIds.map((holeId, i) => {
             return (<td><DynamicInputRange value={this.state.desiredYardages[i]} index={i} min={0} max={100} handleChange={this.handleDesiredYardageChange} ></DynamicInputRange></td>);
@@ -37,13 +38,14 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
         const headerRow = holeIds.map((holeId) => {
             return <th key={'headerHoleId' + holeId.toString()}>{'Hole #' + holeId.toString()}</th>
         });
-        headerRow.unshift(<th>Id</th>);
+        headerRow.unshift(<th>Row</th>);
         // construct data rows
         let maxLength: number = 0;
         rangesPerHoleId.forEach((rangeArr) => {
             if (maxLength < rangeArr.length) maxLength = rangeArr.length;
         })
 
+        // create table rows
         const tableRows = [];
         for (let index = 0; index < maxLength; index++) {
             const rowData = [];
@@ -59,7 +61,7 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
                     if (element.min <= desiredYardage && element.max >= desiredYardage) {
                         const teeboxYardage = element.min + element.delta;
                         const adjustment = desiredYardage - teeboxYardage;
-                        cellVal = '(' + element.min.toString() + ' , ' + element.max.toString() + ') => ' + '<' + element.teeboxId + ',' + element.pinId + '>' + ' => [' + teeboxYardage.toString() + ',' + adjustment.toString() + ']';
+                        cellVal = 'Teebox#' + element.teeboxId + ' Pin#' + element.pinId.toString() + ' => ' + teeboxYardage.toString() + ' + ' + adjustment.toString();
                     }
                 } else {
                     console.log('this is bad')
@@ -73,10 +75,8 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
 
 
         return (<div>
-            <br></br>
-            <br></br>
-            <div>(Min,Max){' => <TeeboxId,PinId> => Adjustment'}</div>
-            <br></br>
+            <h2>Choose Yardages</h2>
+            <div>Yaradage + Marker adjustment from center of teebox</div>
             <br></br>
             <table>
                 <tbody>
@@ -89,6 +89,11 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
                     {tableRows}
                 </tbody>
             </table>
+            <br></br>
+            <br></br>
+            <RangeChart chartData={ranges}></RangeChart>
+            <br></br>
+            <br></br>
         </div>);
     }
     public handleDesiredYardageChange(index: number, value: number) {
