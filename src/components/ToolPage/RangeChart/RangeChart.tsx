@@ -24,7 +24,7 @@ class RangeChart extends Component<{ chartData: IRangeInfo[] }, {}> {
         const pin5DataPoints = dataPoints.filter((data) => data.pinId === 5);
         const pin6DataPoints = dataPoints.filter((data) => data.pinId === 6);
 
-        const toolTipContent = "<strong>X: {x} Hole {holeId} Teebox {teeBoxId} PinId {pinId}</strong></br> Max: {y[1]}<br/> Min: {y[0]}"
+        const toolTipContent = "<strong>Hole {holeId} Teebox {teeBoxId} PinId {pinId}</strong></br> Max: {y[1]}<br/> Min: {y[0]}"
         const options = {
             theme: "light2",
             exportEnabled: true,
