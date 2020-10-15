@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { DataService } from '../../services/data-service';
 import DynamicInputRange from '../DynamicInputRange/DynamicInputRange';
+import { ColorService } from './ColorService';
 import RangeChart from './RangeChart/RangeChart';
-
 
 class ToolPage extends Component<{ dataService: DataService }, { desiredYardages: number[] }> {
     constructor(props: any) {
@@ -11,6 +11,7 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
             desiredYardages: [150, 150, 150, 150, 150]
         }
         this.handleDesiredYardageChange = this.handleDesiredYardageChange.bind(this);
+
     }
     public render() {
         const ranges = this.props.dataService.getAllRanges();
@@ -30,15 +31,15 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
         });
 
         const numberInputs = holeIds.map((holeId, i) => {
-            return (<td><DynamicInputRange value={this.state.desiredYardages[i]} index={i} min={0} max={100} handleChange={this.handleDesiredYardageChange} ></DynamicInputRange></td>);
+            return (<td key={'numberInput' + i.toString()}><DynamicInputRange value={this.state.desiredYardages[i]} index={i} min={0} max={100} handleChange={this.handleDesiredYardageChange} ></DynamicInputRange></td>);
         });
-        numberInputs.unshift(<td></td>)
+        numberInputs.unshift(<td key=''></td>)
 
         // construct header row
         const headerRow = holeIds.map((holeId) => {
             return <th key={'headerHoleId' + holeId.toString()}>{'Hole #' + holeId.toString()}</th>
         });
-        headerRow.unshift(<th>Row</th>);
+        headerRow.unshift(<th key={''}>Row</th>);
         // construct data rows
         let maxLength: number = 0;
         rangesPerHoleId.forEach((rangeArr) => {
@@ -49,12 +50,13 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
         const tableRows = [];
         for (let index = 0; index < maxLength; index++) {
             const rowData = [];
-            rowData.push(<td>{index + 1}</td>)
+            rowData.push(<td key={'dataCell' + index.toString()}>{index + 1}</td>)
             for (let i = 0; i < rangesPerHoleId.length; i++) {
                 const arr = rangesPerHoleId[i];
                 const desiredYardage = this.state.desiredYardages[i];
 
                 let cellVal = '-';
+                let bgColor = '';
                 // no indexing out of bounds
                 if (index < arr.length) {
                     const element = arr[index];
@@ -62,11 +64,12 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
                         const teeboxYardage = element.min + element.delta;
                         const adjustment = desiredYardage - teeboxYardage;
                         cellVal = 'Teebox#' + element.teeboxId + ' Pin#' + element.pinId.toString() + ' => ' + teeboxYardage.toString() + ' + ' + adjustment.toString();
+                        bgColor = ColorService.getColorByPinId(element.pinId);
                     }
                 } else {
-                    console.log('this is bad')
+                    // console.log('defaulting')
                 }
-                rowData.push(<td key={'rowData' + i}>{cellVal}</td>)
+                rowData.push(<td key={'rowData' + i} style={{ backgroundColor: bgColor }}>{cellVal}</td>)
             }
             tableRows.push(<tr key={'tableRow' + index}>{rowData}</tr>)
         }
@@ -78,23 +81,26 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
             <h2>Choose Yardages</h2>
             <div>Yaradage + Marker adjustment from center of teebox</div>
             <br></br>
-            <table>
-                <tbody>
-                    <tr>
-                        {headerRow}
-                    </tr>
-                    <tr>
-                        {numberInputs}
-                    </tr>
-                    {tableRows}
-                </tbody>
-            </table>
+            <div id="toolTableContainer">
+
+                <table id="toolTable" width={'100%'}>
+                    <tbody>
+                        <tr>
+                            {headerRow}
+                        </tr>
+                        <tr>
+                            {numberInputs}
+                        </tr>
+                        {tableRows}
+                    </tbody>
+                </table>
+            </div>
             <br></br>
             <br></br>
             <RangeChart chartData={ranges}></RangeChart>
             <br></br>
             <br></br>
-        </div>);
+        </div >);
     }
     public handleDesiredYardageChange(index: number, value: number) {
         const cloned = this.cloneNumberArray(this.state.desiredYardages)
@@ -105,6 +111,10 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
         const clone: number[] = [];
         arr.forEach((val) => clone.push(val));
         return clone;
+    }
+    cloneString(original_string: string) {
+        console.log(original_string)
+        return original_string.slice();
     }
 }
 
