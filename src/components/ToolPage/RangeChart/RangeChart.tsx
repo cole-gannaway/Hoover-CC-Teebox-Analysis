@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CanvasJSReact from '../../../lib/canvasjs.react'
 import { IRangeInfo } from '../../../interfaces/IRangeInfo';
 import { ColorService } from '../ColorService';
+import { NumberToLetterService } from '../../../services/number-to-letter-service';
 
 class RangeChart extends Component<{ chartData: IRangeInfo[] }, {}> {
     public render() {
@@ -13,7 +14,8 @@ class RangeChart extends Component<{ chartData: IRangeInfo[] }, {}> {
 
                 holeId: data.holeId,
                 teeBoxId: data.teeboxId,
-                pinId: data.pinId
+                pinId: data.pinId,
+                teeBoxLetter: NumberToLetterService.convertNumberToLetter(data.teeboxId)
             };
         });
 
@@ -24,7 +26,7 @@ class RangeChart extends Component<{ chartData: IRangeInfo[] }, {}> {
         const pin5DataPoints = dataPoints.filter((data) => data.pinId === 5);
         const pin6DataPoints = dataPoints.filter((data) => data.pinId === 6);
 
-        const toolTipContent = "<strong>Hole {holeId} Teebox {teeBoxId} PinId {pinId}</strong></br> Max: {y[1]}<br/> Min: {y[0]}"
+        const toolTipContent = "<strong>Hole {holeId} Teebox {teeBoxLetter} PinId {pinId}</strong></br> Max: {y[1]}<br/> Min: {y[0]}"
         const options = {
             theme: "light2",
             exportEnabled: true,

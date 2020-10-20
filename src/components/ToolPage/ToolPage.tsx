@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { DataService } from '../../services/data-service';
+import { NumberToLetterService } from '../../services/number-to-letter-service';
 import DynamicInputRange from '../DynamicInputRange/DynamicInputRange';
 import { ColorService } from './ColorService';
 import RangeChart from './RangeChart/RangeChart';
@@ -63,7 +64,7 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
                     if (element.min <= desiredYardage && element.max >= desiredYardage) {
                         const teeboxYardage = element.min + element.delta;
                         const adjustment = desiredYardage - teeboxYardage;
-                        cellVal = 'Teebox#' + element.teeboxId + ' Pin#' + element.pinId.toString() + ' => ' + teeboxYardage.toString() + ' + ' + adjustment.toString();
+                        cellVal = 'Teebox ' + NumberToLetterService.convertNumberToLetter(element.teeboxId) + ', Pin#' + element.pinId.toString() + ' => ' + teeboxYardage.toString() + ' + ' + adjustment.toString();
                         bgColor = ColorService.getColorByPinId(element.pinId);
                     }
                 } else {
