@@ -42,7 +42,7 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
     }
     return (<div>
       {appBar}
-      <div>
+      <div id="contentContainer">
         {page}
       </div>
     </div>);
