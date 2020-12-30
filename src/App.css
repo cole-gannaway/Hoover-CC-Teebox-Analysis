@@ -4,6 +4,6 @@ td {
   border: 1px solid black;
   font-size: 12px;
 }
-#toolTableContainer {
-  overflow-x: auto;
+#contentContainer {
+  padding: 5px;
 }
