@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { DataService } from '../../../services/data-service';
 import DataTableApi from '../../DataTableApi/DataTableApi';
 import SelectAPI from '../../SelectAPI/SelectAPI';
+import PinDepthTableCustom from './PinDepthTableCustom';
+import { ICourse } from '../../../resources/interfaces/ICourse';
 
 const options = ['Any', '3', '4', '5'];
-class PinDepthTable extends Component<{ dataService: DataService }, { parFilter: string }> {
+class PinDepthTable extends Component<{ dataService: DataService,updateData(course: ICourse) : void }, { parFilter: string }> {
 
   constructor(props: any) {
     super(props);
@@ -62,6 +64,7 @@ class PinDepthTable extends Component<{ dataService: DataService }, { parFilter:
         <SelectAPI value={this.state.parFilter} options={options} handleChange={this.handleParFilterChange}></SelectAPI>
       </div>
       <DataTableApi data={finalData}></DataTableApi>
+      <PinDepthTableCustom dataService={this.props.dataService} updateData={this.props.updateData} holeIds={holeIds} ></PinDepthTableCustom>
     </div>);
   }
   public handleParFilterChange(newVal: string) {

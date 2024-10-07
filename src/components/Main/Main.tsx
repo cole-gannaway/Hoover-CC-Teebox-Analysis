@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs/Tabs';
 import Tab from '@material-ui/core/Tab/Tab';
 import DataPage from '../DataPage/DataPage';
 import ToolPage from '../ToolPage/ToolPage';
+import { ICourse } from '../../resources/interfaces/ICourse';
 
 class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: number, dataService: DataService, tabIndex: number }> {
   constructor(props: any) {
@@ -18,7 +19,7 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
     }
     this.handlePinLocationIdChange = this.handlePinLocationIdChange.bind(this);
     this.handleTabIndexChange = this.handleTabIndexChange.bind(this);
-    this.setDataServiceToNewFile = this.setDataServiceToNewFile.bind(this);
+    this.updateDataService = this.updateDataService.bind(this);
 
   }
 
@@ -35,7 +36,7 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
         page = (<ToolPage dataService={this.state.dataService}></ToolPage>);
         break;
       case 1:
-        page = (<DataPage dataService={this.state.dataService}></DataPage>)
+        page = (<DataPage dataService={this.state.dataService} updateData={this.updateDataService}></DataPage>)
         break;
       default:
         break;
@@ -57,7 +58,7 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
     const index = parseInt(value);
     this.setState({ tabIndex: index });
   }
-  public setDataServiceToNewFile(data: any) {
+  public updateDataService(data: ICourse) {
     const createdDataService = new DataService();
     createdDataService.setCourse(data);
     this.setState({ dataService: createdDataService });
