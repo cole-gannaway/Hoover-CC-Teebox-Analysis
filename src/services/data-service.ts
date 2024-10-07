@@ -5,7 +5,6 @@ import { YardageUtils } from "./yardage-utils";
 
 export class DataService {
   private course: ICourse = testData;
-  private cachedCourseRangesInfo: IRangeInfo[] | null = null;
   setCourse(course: ICourse) {
     this.course = course;
   }
@@ -98,7 +97,6 @@ export class DataService {
     return retVal;
   }
   public getAllRanges() {
-    if (this.cachedCourseRangesInfo == null) {
       const ranges: IRangeInfo[] = [];
       this.course.holes.forEach((hole) => {
         const holeId = hole.id;
@@ -130,8 +128,6 @@ export class DataService {
         }
       });
       // cache results
-      this.cachedCourseRangesInfo = ranges;
-    }
-    return this.cachedCourseRangesInfo;
+    return ranges;
   }
 }

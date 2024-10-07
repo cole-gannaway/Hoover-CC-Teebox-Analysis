@@ -31,7 +31,6 @@ public render() {
     });
     
     const newPinLocId = this.props.dataService.getAllPinLocationIds().length + 1;
-    console.log(this.props.dataService.getAllData())
     const dataRow = [];
     const dataRowStyle : React.CSSProperties = {textAlign:"center"}
     dataRow.push(<td key={"pin-loc-id"} style={dataRowStyle}>{newPinLocId}</td>)
@@ -62,13 +61,11 @@ public render() {
     if (!Number.isNaN(newVal)) {
         newDepth = newVal
     }
-    console.log("Setting " + holeId + " to depth " + newDepth)
     const shallowCopy:IPinLocation[] = {...this.state.customPinLocations}
     shallowCopy[holeId-1] = {
         id: pinLocId,
         depth: newDepth
     }
-    console.log(shallowCopy)
     this.setState({
         customPinLocations:shallowCopy
     })
@@ -77,17 +74,31 @@ public render() {
   public handleSubmit(){
     const course = this.props.dataService.getAllData();
     course.holes.forEach(hole => {
+        const holeId = hole.id
+        const newPinLocInfo = this.state.customPinLocations[holeId-1]
         // set the new pin location id
         hole.pinLocations.push({
-            id:7,
-            depth:0
+            id : newPinLocInfo.id,
+            depth: newPinLocInfo.depth
         })
     })
     
     // Deep clone
     const clonedCourse : ICourse = JSON.parse(JSON.stringify(course));
-
+    // Update data
     this.props.updateData(clonedCourse)
+
+    const initCustomPinLocations :IPinLocation[] = []
+    const newPinLocId = this.props.dataService.getAllPinLocationIds().length + 1;
+    for (let i = 1; i <= 18; i++) {
+        initCustomPinLocations.push({
+            id:newPinLocId,
+            depth:0
+        })
+    }
+    this.setState({
+        customPinLocations: initCustomPinLocations
+    })
 
   }
 

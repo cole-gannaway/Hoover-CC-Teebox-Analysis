@@ -19,14 +19,20 @@ class RangeChart extends Component<{ chartData: IRangeInfo[] }, {}> {
             };
         });
 
-        const pin1DataPoints = dataPoints.filter((data) => data.pinId === 1);
-        const pin2DataPoints = dataPoints.filter((data) => data.pinId === 2);
-        const pin3DataPoints = dataPoints.filter((data) => data.pinId === 3);
-        const pin4DataPoints = dataPoints.filter((data) => data.pinId === 4);
-        const pin5DataPoints = dataPoints.filter((data) => data.pinId === 5);
-        const pin6DataPoints = dataPoints.filter((data) => data.pinId === 6);
-
+        // Find unique pin ids
+        const pinIds =  Array.from(new Set(dataPoints.map(val => val.pinId)));
         const toolTipContent = "<strong>Hole {holeId} Teebox {teeBoxLetter} PinId {pinId}</strong></br> Max: {y[1]}<br/> Min: {y[0]}"
+
+        // dynamicallly create options
+        const data = pinIds.map(pinId => {
+            return {
+                type: "rangeColumn",
+                color: ColorService.getColorByPinId(pinId),
+                toolTipContent: toolTipContent,
+                dataPoints: dataPoints.filter((data) => data.pinId === pinId),
+            }
+        })
+
         const options = {
             theme: "light2",
             exportEnabled: true,
@@ -43,50 +49,11 @@ class RangeChart extends Component<{ chartData: IRangeInfo[] }, {}> {
                 suffix: ""
             },
             dataPointWidth: 8,
-            data: [
-                {
-                    type: "rangeColumn",
-                    color: ColorService.getColorByPinId(1),
-                    toolTipContent: toolTipContent,
-                    dataPoints: pin1DataPoints,
-                    dataPointWidth: 2
-                },
-                {
-                    type: "rangeColumn",
-                    color: ColorService.getColorByPinId(2),
-                    toolTipContent: toolTipContent,
-                    dataPoints: pin2DataPoints,
-                },
-                {
-                    type: "rangeColumn",
-                    color: ColorService.getColorByPinId(3),
-                    toolTipContent: toolTipContent,
-                    dataPoints: pin3DataPoints,
-                },
-                {
-                    type: "rangeColumn",
-                    color: ColorService.getColorByPinId(4),
-                    toolTipContent: toolTipContent,
-                    dataPoints: pin4DataPoints,
-                },
-                {
-                    type: "rangeColumn",
-                    color: ColorService.getColorByPinId(5),
-                    toolTipContent: toolTipContent,
-                    dataPoints: pin5DataPoints,
-                },
-                {
-                    type: "rangeColumn",
-                    color: ColorService.getColorByPinId(6),
-                    toolTipContent: toolTipContent,
-                    dataPoints: pin6DataPoints,
-                },
-
-            ]
+            data: data
         }
         return (
             <div>
-                <CanvasJSReact.CanvasJSChart options={options}
+                <CanvasJSReact.CanvasJSChart options={options} 
                 /* onRef={ref => this.chart = ref} */
                 />
                 {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
