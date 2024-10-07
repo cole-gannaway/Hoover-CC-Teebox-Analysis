@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DataService } from '../../../services/data-service';
 import { IPinLocation } from '../../../resources/interfaces/IPinLocation';
 import { ICourse } from '../../../resources/interfaces/ICourse';
+import CustomNumberInput from './CustomNumberInput';
 
 class PinDepthTableCustom extends Component<{ dataService: DataService, updateData(course: ICourse) : void, holeIds : number[], }, { customPinLocations : IPinLocation[] }> {
 
@@ -35,7 +36,9 @@ public render() {
     const dataRowStyle : React.CSSProperties = {textAlign:"center"}
     dataRow.push(<td key={"pin-loc-id"} style={dataRowStyle}>{newPinLocId}</td>)
     this.props.holeIds.forEach((holeId) => {
-        dataRow.push(<td key={"custom-pin-loc-value-" +holeId.toString()} style={dataRowStyle}><input style={dataRowStyle} value={this.state.customPinLocations[holeId-1].depth} onChange={(e) => this.handleChange(holeId, newPinLocId, parseInt(e.target.value))}></input></td>);
+        dataRow.push(<td key={"custom-pin-loc-value-" +holeId.toString()} style={dataRowStyle}>
+          <CustomNumberInput style={dataRowStyle} updateParent={(newVal) => {this.handleChange(holeId,newPinLocId,newVal)}}></CustomNumberInput>
+        </td>);
     });
 
     return (<div>
@@ -56,6 +59,7 @@ public render() {
 
     </div>);
   }
+  
   public handleChange(holeId:number, pinLocId :number, newVal :number) {
     var newDepth = 0
     if (!Number.isNaN(newVal)) {
