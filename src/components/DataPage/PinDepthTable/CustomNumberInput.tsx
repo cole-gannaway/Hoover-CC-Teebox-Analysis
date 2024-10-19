@@ -13,7 +13,7 @@ class CustomNumberInput extends Component<{ style : React.CSSProperties, updateP
 
 public render() {
 
-    return (<input value={this.state.value} style={this.props.style} onChange={(e) => this.setValue(e.target.value)} onBlur={this.handleBlur}></input>);
+    return (<input value={this.state.value} style={this.props.style} onChange={(e) => this.setValue(e.target.value)} onBlur={this.handleBlur} pattern="-?[0-9]*"></input>);
   }
 
   public setValue(newVal :string){

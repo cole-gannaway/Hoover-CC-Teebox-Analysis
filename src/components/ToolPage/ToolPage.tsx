@@ -1,7 +1,6 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import React, { Component } from 'react';
 import { DataService } from '../../services/data-service';
-import { NumberToLetterService } from '../../services/number-to-letter-service';
 import DynamicInputRange from '../DynamicInputRange/DynamicInputRange';
 import { ColorService } from './ColorService';
 import RangeChart from './RangeChart/RangeChart';
@@ -66,7 +65,9 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
                     if (element.min <= desiredYardage && element.max >= desiredYardage) {
                         const teeboxYardage = element.min + element.delta;
                         const adjustment = desiredYardage - teeboxYardage;
-                        cellVal = 'Teebox ' + NumberToLetterService.convertNumberToLetter(element.teeboxId) + ', Pin#' + element.pinId.toString() + ', Marker [' + adjustment.toString() + ']';
+                        const absoluteValueAdjustment = Math.abs(adjustment);
+                        const forward_or_backward = adjustment == 0 ? "" : adjustment > 0 ? "forward" : "backward"
+                        cellVal = 'Pin#' + element.pinId.toString() + ', Teebox ' + element.teeboxId + ', ' + absoluteValueAdjustment.toString() + ' step(s) ' + forward_or_backward + ' from Marker';
                         bgColor = ColorService.getColorByPinId(element.pinId);
                     }
                 } else {
@@ -80,7 +81,7 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
         // render
         return (<div>
             <h2>Choose Yardages</h2>
-            <div>{"Teebox, Pin, Marker Adjustment (from center of teebox)"}</div>
+            <div>{"Pin, Teebox, Marker Adjustment (from center of teebox)"}</div>
             <br></br>
             <TableContainer component={Paper}>
                 <Table>
