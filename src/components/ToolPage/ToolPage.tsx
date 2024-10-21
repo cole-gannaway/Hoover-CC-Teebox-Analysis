@@ -5,9 +5,11 @@ import DynamicInputRange from '../DynamicInputRange/DynamicInputRange';
 import { ColorService } from './ColorService';
 import RangeChart from './RangeChart/RangeChart';
 import Paper from '@material-ui/core/Paper';
+import PinDepthTableCustom from '../DataPage/PinDepthTable/PinDepthTableCustom';
+import { ICourse } from '../../resources/interfaces/ICourse';
 
 
-class ToolPage extends Component<{ dataService: DataService }, { desiredYardages: number[] }> {
+class ToolPage extends Component<{ dataService: DataService, updateData(course: ICourse) : void }, { desiredYardages: number[] }> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -66,7 +68,7 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
                         const teeboxYardage = element.min + element.delta;
                         const adjustment = desiredYardage - teeboxYardage;
                         const absoluteValueAdjustment = Math.abs(adjustment);
-                        const forward_or_backward = adjustment == 0 ? "" : adjustment > 0 ? "forward" : "backward"
+                        const forward_or_backward = adjustment === 0 ? "" : adjustment > 0 ? "forward" : "backward"
                         cellVal = 'Pin#' + element.pinId.toString() + ', Teebox ' + element.teeboxId + ', ' + absoluteValueAdjustment.toString() + ' step(s) ' + forward_or_backward + ' from Marker';
                         bgColor = ColorService.getColorByPinId(element.pinId);
                     }
@@ -80,6 +82,8 @@ class ToolPage extends Component<{ dataService: DataService }, { desiredYardages
 
         // render
         return (<div>
+            <h2>Enter Pin Depths</h2>
+            <PinDepthTableCustom dataService={this.props.dataService} updateData={this.props.updateData} holeIds={holeIds} ></PinDepthTableCustom>
             <h2>Choose Yardages</h2>
             <div>{"Pin, Teebox, Marker Adjustment (from center of teebox)"}</div>
             <br></br>

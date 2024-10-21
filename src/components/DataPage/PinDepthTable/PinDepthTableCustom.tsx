@@ -9,7 +9,7 @@ class PinDepthTableCustom extends Component<{ dataService: DataService, updateDa
   constructor(props: any) {
     super(props);
     const initCustomPinLocations :IPinLocation[] = []
-    const newPinLocId = this.props.dataService.getAllPinLocationIds().length + 1;
+    const newPinLocId = 1;
     for (let i = 1; i <= 18; i++) {
         initCustomPinLocations.push({
             id:newPinLocId,
@@ -25,16 +25,14 @@ class PinDepthTableCustom extends Component<{ dataService: DataService, updateDa
 
 public render() {
     // construct header row
-    const headerRow = [];
-    headerRow.push(<th key={"pin-loc-id-header"}>{"Pin Location Id"}</th>);
+    const headerRow : any[] = [];
     this.props.holeIds.forEach((holeId) => {
         headerRow.push(<th key={"custom-pin-loc-header-" +holeId.toString()}>{'Hole #' + holeId.toString()}</th>);
     });
     
-    const newPinLocId = this.props.dataService.getAllPinLocationIds().length + 1;
-    const dataRow = [];
+    const newPinLocId = 1;
+    const dataRow : any[] = [];
     const dataRowStyle : React.CSSProperties = {textAlign:"center"}
-    dataRow.push(<td key={"pin-loc-id"} style={dataRowStyle}>{newPinLocId}</td>)
     this.props.holeIds.forEach((holeId) => {
         dataRow.push(<td key={"custom-pin-loc-value-" +holeId.toString()} style={dataRowStyle}>
           <CustomNumberInput style={dataRowStyle} updateParent={(newVal) => {this.handleChange(holeId,newPinLocId,newVal)}}></CustomNumberInput>
@@ -55,7 +53,7 @@ public render() {
           </tr>
         </tbody>
       </table>
-      <button style={{width:"60px"}} onClick={this.handleSubmit}>Add</button>
+      <button style={{width:"60px"}} onClick={this.handleSubmit}>Save</button>
 
     </div>);
   }
@@ -81,10 +79,10 @@ public render() {
         const holeId = hole.id
         const newPinLocInfo = this.state.customPinLocations[holeId-1]
         // set the new pin location id
-        hole.pinLocations.push({
+        hole.pinLocations = [{
             id : newPinLocInfo.id,
             depth: newPinLocInfo.depth
-        })
+        }]
     })
     
     // Deep clone
@@ -93,7 +91,7 @@ public render() {
     this.props.updateData(clonedCourse)
 
     const initCustomPinLocations :IPinLocation[] = []
-    const newPinLocId = this.props.dataService.getAllPinLocationIds().length + 1;
+    const newPinLocId = 1;
     for (let i = 1; i <= 18; i++) {
         initCustomPinLocations.push({
             id:newPinLocId,

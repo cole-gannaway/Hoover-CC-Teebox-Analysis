@@ -5,14 +5,13 @@ import HoleYardageTable from './HoleYardageTable/HoleYardageTable';
 import MarkerDepthTable from './MarkerDepthTable/MarkerDepthTable';
 import PinDepthTable from './PinDepthTable/PinDepthTable';
 import SlopeTable from './SlopeTable/SlopeTable';
-import { ICourse } from '../../resources/interfaces/ICourse';
 
-class DataPage extends Component<{ dataService: DataService,updateData(course: ICourse) : void }, {}> {
+class DataPage extends Component<{ dataService: DataService}, {}> {
     public render() {
         return (<div>
             <h1>Data Overview</h1>
             <h3>Pin Depths</h3>
-            <PinDepthTable dataService={this.props.dataService} updateData={this.props.updateData}></PinDepthTable>
+            <PinDepthTable dataService={this.props.dataService}></PinDepthTable>
             <h3>Teebox Depths</h3>
             <div>{'(Teebox Depth / 2) - 1'}</div>
             <br></br>

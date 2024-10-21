@@ -33,10 +33,10 @@ class Main extends Component<any, { pinLocationId: number, overviewPinDepthSum: 
     let page = (<div></div>);
     switch (this.state.tabIndex) {
       case 0:
-        page = (<ToolPage dataService={this.state.dataService}></ToolPage>);
+        page = (<ToolPage dataService={this.state.dataService} updateData={this.updateDataService}></ToolPage>);
         break;
       case 1:
-        page = (<DataPage dataService={this.state.dataService} updateData={this.updateDataService}></DataPage>)
+        page = (<DataPage dataService={this.state.dataService}></DataPage>)
         break;
       default:
         break;
